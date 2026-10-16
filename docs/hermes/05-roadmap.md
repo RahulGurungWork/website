@@ -24,14 +24,14 @@ Option A: one 3-hour session per week, starting Monday 2026-10-19. Gantt chart: 
 - [x] HERMES documents and first ADRs in `docs/`
 - [x] GitHub Actions CI workflow (build, test, secret scan)
 - [x] README with setup instructions
-- [ ] Install JDK 25 (Temurin) and Docker Desktop
-- [ ] Create the GitHub repository and push
-- [ ] `mvnw verify` green locally and in CI
-- [ ] Infomaniak: two-factor authentication and auto-renew on; check the kSuite mailbox
+- [x] Install JDK 25 (Temurin) and Docker Desktop
+- [x] Create the GitHub repository and push
+- [x] `mvnw verify` green locally and in CI
+- [x] Infomaniak mailbox `rahul@gurung.ch` created, SMTP send tested
+- [ ] Infomaniak: two-factor authentication and auto-renew on; check the domain term (shows expiry 2027-10-15, 2 years were ordered)
 
 ## Open items
 
 - Verify that SBB backend teams use Spring Boot (job ads).
 - Verify HERMES phase and document names at hermes.admin.ch.
 - Confirm live Infomaniak VPS Lite price before ordering (M7/M8).
-- Confirm the free mailbox can send via SMTP.

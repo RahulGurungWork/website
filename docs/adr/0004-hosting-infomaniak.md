@@ -11,7 +11,7 @@ Spring Boot needs a Java runtime, which rules out PHP shared hosting. Budget is 
 - One Infomaniak VPS Lite (Swiss datacenter), 4 GB RAM if the live price fits, otherwise 2 GB.
 - Docker Compose stack: Caddy (HTTPS, reverse proxy) → Spring Boot app → PostgreSQL.
 - Main hostname `www.portfolio.rahul.gurung.ch`; `portfolio.rahul.gurung.ch` redirects to it.
-- Mail through Infomaniak authenticated SMTP (port 587); contact address `management@gurung.ch` (tentative).
+- Mail through Infomaniak authenticated SMTP (`mail.infomaniak.com`, port 587, STARTTLS) with the free kSuite mailbox `rahul@gurung.ch`, which sends and receives the contact form mail (SMTP send tested 2026-10-16).
 - CD via GitHub Actions → GHCR → SSH deploy. Nightly `pg_dump` with an off-site copy (Swiss Backup candidate).
 - Order the VPS at the start of M7/M8, not earlier.
 

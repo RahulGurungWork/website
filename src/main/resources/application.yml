@@ -36,4 +36,4 @@ management:
 
 portfolio:
   contact:
-    recipient: ${CONTACT_RECIPIENT:management@gurung.ch}
+    recipient: ${CONTACT_RECIPIENT:rahul@gurung.ch}
