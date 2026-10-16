@@ -1,0 +1,50 @@
+# Continuous deployment (draft until M8). Manual trigger only until the VPS exists;
+# switch to `on: push: branches: [main]` once the server and secrets are set up.
+#
+# Required repository secrets: DEPLOY_HOST, DEPLOY_USER, DEPLOY_SSH_KEY
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  IMAGE: ghcr.io/${{ github.repository_owner }}/portfolio
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:${{ github.sha }}
+            ${{ env.IMAGE }}:latest
+
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          script: |
+            cd ~/portfolio/deploy
+            APP_IMAGE=${{ env.IMAGE }}:${{ github.sha }} docker compose pull app
+            APP_IMAGE=${{ env.IMAGE }}:${{ github.sha }} docker compose up -d
+
+      - name: Smoke test
+        run: curl -fsS https://www.portfolio.rahul.gurung.ch/ > /dev/null

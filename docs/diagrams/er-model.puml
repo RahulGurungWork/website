@@ -1,0 +1,73 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+entity "project" as project {
+  * id : bigint <<PK>>
+  --
+  * slug : varchar <<unique>>
+  * status : varchar  (CURRENT / PAST)
+  started_on : date
+  ended_on : date
+  repo_url : varchar
+  demo_url : varchar
+  * sort_order : int
+  * published : boolean
+}
+
+entity "project_translation" as pt {
+  * id : bigint <<PK>>
+  --
+  * project_id : bigint <<FK>>
+  * locale : varchar  (en / de)
+  * title : varchar
+  * summary : varchar
+  * description : text
+}
+
+entity "project_image" as pi {
+  * id : bigint <<PK>>
+  --
+  * project_id : bigint <<FK>>
+  * path : varchar
+  alt_en : varchar
+  alt_de : varchar
+  * sort_order : int
+}
+
+entity "technology" as tech {
+  * id : bigint <<PK>>
+  --
+  * name : varchar <<unique>>
+}
+
+entity "project_technology" as ptech {
+  * project_id : bigint <<FK>>
+  * technology_id : bigint <<FK>>
+}
+
+entity "certification" as cert {
+  * id : bigint <<PK>>
+  --
+  * name : varchar
+  * issuer : varchar
+  issued_on : date
+  credential_url : varchar
+  * sort_order : int
+}
+
+entity "contact_message" as msg {
+  * id : bigint <<PK>>
+  --
+  * name : varchar
+  * email : varchar
+  * message : text
+  * created_at : timestamp
+  * mail_sent : boolean
+}
+
+project ||--o{ pt
+project ||--o{ pi
+project ||--o{ ptech
+tech ||--o{ ptech
+@enduml

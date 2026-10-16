@@ -1,0 +1,39 @@
+# Shared settings. Profile-specific values live in application-dev.yml / application-prod.yml.
+spring:
+  application:
+    name: portfolio
+  profiles:
+    default: dev
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate   # Flyway owns the schema
+  flyway:
+    locations: classpath:db/migration
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    fallback-to-system-locale: false
+  thymeleaf:
+    cache: true
+
+server:
+  port: 8080
+  forward-headers-strategy: framework   # behind Caddy
+  error:
+    whitelabel:
+      enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+portfolio:
+  contact:
+    recipient: ${CONTACT_RECIPIENT:management@gurung.ch}

@@ -1,0 +1,20 @@
+# Draft until M8. Caddy obtains and renews Let's Encrypt certificates once DNS points here.
+www.portfolio.rahul.gurung.ch {
+	encode zstd gzip
+	reverse_proxy app:8080
+	header {
+		# Enable HSTS only after HTTPS is confirmed working:
+		# Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		X-Frame-Options "DENY"
+		-Server
+	}
+	# Actuator stays internal
+	respond /actuator/* 404
+}
+
+# Shorter hostname redirects to the main address
+portfolio.rahul.gurung.ch {
+	redir https://www.portfolio.rahul.gurung.ch{uri} permanent
+}

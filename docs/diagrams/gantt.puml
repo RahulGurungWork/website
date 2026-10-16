@@ -1,0 +1,14 @@
+@startgantt
+Project starts 2026-10-19
+[M1 Environment and skeleton] lasts 1 week
+[M2 Data model and seed data] starts at [M1 Environment and skeleton]'s end and lasts 1 week
+[M3 Layout, Bootstrap and i18n] starts at [M2 Data model and seed data]'s end and lasts 1 week
+[Content preparation] starts at [M3 Layout, Bootstrap and i18n]'s end and lasts 1 week
+[M4 Project pages] starts at [Content preparation]'s end and lasts 1 week
+[M5 Certifications and legal pages] starts at [M4 Project pages]'s end and lasts 1 week
+[M6 Contact form] starts at [M5 Certifications and legal pages]'s end and lasts 2 weeks
+[M7 Quality pass] starts at [M6 Contact form]'s end and lasts 2 weeks
+[M8 Production] starts at [M7 Quality pass]'s end and lasts 2 weeks
+[Buffer] starts at [M8 Production]'s end and lasts 1 week
+[Go-live] happens at [M8 Production]'s end
+@endgantt

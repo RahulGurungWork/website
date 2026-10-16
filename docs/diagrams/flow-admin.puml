@@ -1,0 +1,22 @@
+@startuml
+actor Admin
+participant "Browser" as B
+participant "AdminController" as C
+participant "Spring Security" as SEC
+participant "ProjectService" as S
+database "PostgreSQL" as DB
+
+Admin -> B : Open /admin
+B -> C : GET /admin
+C -> SEC : Authenticated?
+SEC --> B : Redirect to login
+Admin -> B : Submit credentials
+B -> SEC : POST /login
+SEC --> B : Session established
+Admin -> B : Create or edit project
+B -> C : POST /admin/projects
+C -> S : save(project, translations, images)
+S -> DB : Persist
+S --> C : Saved
+C --> B : Redirect to project list
+@enduml

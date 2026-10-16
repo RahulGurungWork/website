@@ -1,0 +1,17 @@
+# Local development. Start PostgreSQL first:
+#   docker compose -f deploy/docker-compose.dev.yml up -d
+# or run TestPortfolioApplication (src/test) to get a throwaway database via Testcontainers.
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/portfolio
+    username: portfolio
+    password: portfolio
+  thymeleaf:
+    cache: false
+  mail:
+    host: localhost
+    port: 1025          # Mailpit from docker-compose.dev.yml; UI on http://localhost:8025
+
+logging:
+  level:
+    ch.gurung.rahul.portfolio: debug

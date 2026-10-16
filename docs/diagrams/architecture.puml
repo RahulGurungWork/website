@@ -1,0 +1,29 @@
+@startuml
+skinparam componentStyle rectangle
+actor "Visitor" as V
+component "Caddy\n(reverse proxy, HTTPS)" as P
+
+package "Spring Boot application" {
+  component "Controllers\n(Spring MVC)" as C
+  component "Services\n(business logic)" as S
+  component "Repositories\n(Spring Data JPA)" as R
+  component "Thymeleaf templates\n+ static assets" as T
+  component "i18n messages\n(EN, DE)" as I
+  component "Mail service" as M
+  component "Spam protection\n(honeypot + rate limit)" as SP
+}
+
+database "PostgreSQL" as DB
+cloud "SMTP provider" as SMTP
+
+V --> P : HTTPS
+P --> C : HTTP
+C --> S
+C --> T
+T --> I
+C --> SP
+S --> R
+S --> M
+R --> DB
+M --> SMTP
+@enduml

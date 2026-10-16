@@ -1,0 +1,30 @@
+@startuml
+actor Visitor
+participant "Browser" as B
+participant "ContactController" as C
+participant "SpamGuard" as G
+participant "ContactService" as S
+database "PostgreSQL" as DB
+participant "SMTP provider" as M
+
+Visitor -> B : Fill in and submit form
+B -> C : POST /en/contact
+C -> G : Check honeypot + rate limit
+alt Rejected as spam
+  G --> C : Reject
+  C --> B : Generic success page (bot learns nothing)
+else Accepted
+  G --> C : OK
+  C -> C : Validate input
+  alt Invalid
+    C --> B : Form with error messages
+  else Valid
+    C -> S : handle(message)
+    S -> DB : Save message
+    S -> M : Send email to me
+    M --> S : Result
+    S -> DB : Update mail_sent
+    C --> B : Confirmation page
+  end
+end
+@enduml

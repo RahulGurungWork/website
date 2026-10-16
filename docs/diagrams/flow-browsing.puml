@@ -1,0 +1,23 @@
+@startuml
+actor Visitor
+participant "Browser" as B
+participant "Controller" as C
+participant "Service" as S
+database "PostgreSQL" as DB
+
+Visitor -> B : Open site
+B -> C : GET /
+C -> C : Resolve language (URL, then browser header)
+C --> B : Redirect to /en or /de
+B -> C : GET /en/projects
+C -> S : getPublishedProjects(locale)
+S -> DB : Query projects + translations
+DB --> S : Rows
+S --> C : Project list
+C --> B : Rendered HTML
+Visitor -> B : Click a project
+B -> C : GET /en/projects/{slug}
+C -> S : getProject(slug, locale)
+S --> C : Project details
+C --> B : Rendered HTML
+@enduml

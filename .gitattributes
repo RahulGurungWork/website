@@ -1,0 +1,18 @@
+# Linux line endings everywhere (shell scripts break with CRLF inside containers)
+* text=auto eol=lf
+
+# Windows-only scripts
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Binaries
+*.png binary
+*.jpg binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.woff2 binary
+*.jar binary
+*.docx binary
+*.xlsx binary
+*.pdf binary

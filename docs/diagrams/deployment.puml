@@ -1,0 +1,29 @@
+@startuml
+node "Visitor browser" as BR
+
+cloud "DNS (domain registrar)" as DNS
+cloud "SMTP provider" as SMTP
+
+node "GitHub" {
+  component "Repository" as REPO
+  component "GitHub Actions\n(build, test, deploy)" as CI
+  component "Container registry" as REG
+}
+
+node "Infomaniak VPS Lite (Ubuntu, Docker Compose)" as VPS {
+  component "Caddy\n(HTTPS, reverse proxy)" as CADDY
+  component "Spring Boot app\n(container)" as APP
+  database "PostgreSQL\n(container)" as PG
+  folder "Backups\n(nightly dump)" as BK
+}
+
+BR --> DNS : resolve domain
+BR --> CADDY : HTTPS
+CADDY --> APP
+APP --> PG
+APP --> SMTP : send mail
+REPO --> CI : push
+CI --> REG : push image
+CI --> VPS : deploy via SSH
+PG --> BK
+@enduml
