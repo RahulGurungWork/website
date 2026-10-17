@@ -48,4 +48,54 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Still to come in M7: Lighthouse CI.
+  # Test concept targets on mobile: performance ≥ 90, accessibility ≥ 95, LCP ≤ 2.5 s, CLS ≤ 0.1 (lighthouserc.json).
+  # Runs the packaged app against a throwaway PostgreSQL; reports are kept as a workflow artifact, never uploaded
+  # to a public server.
+  lighthouse:
+    name: Lighthouse
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_DB: portfolio
+          POSTGRES_USER: portfolio
+          POSTGRES_PASSWORD: portfolio
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U portfolio -d portfolio"
+          --health-interval 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+
+      - name: Package
+        run: ./mvnw -B -q package -DskipTests
+
+      # Profile "dev" points at localhost:5432 with the credentials above; mail is not needed here
+      - name: Start app
+        run: |
+          java -jar target/portfolio-*.jar --spring.profiles.active=dev > app.log 2>&1 &
+          for i in $(seq 1 60); do
+            curl -sf http://localhost:8080/actuator/health > /dev/null && exit 0
+            sleep 2
+          done
+          cat app.log
+          exit 1
+
+      - name: Lighthouse
+        run: npx --yes @lhci/cli@0.14.0 autorun
+
+      - name: Keep reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: lighthouse-reports/

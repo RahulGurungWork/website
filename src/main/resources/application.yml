@@ -16,6 +16,17 @@ spring:
     fallback-to-system-locale: false
   thymeleaf:
     cache: true
+  web:
+    resources:
+      # Templates link /css/site-<hash>.css, so browsers may cache static files for a year
+      chain:
+        strategy:
+          content:
+            enabled: true
+            paths: /css/**
+      cache:
+        cachecontrol:
+          max-age: 365d
   mail:
     properties:
       # Fail fast instead of hanging the contact form request if SMTP is unreachable
@@ -25,6 +36,9 @@ spring:
 
 server:
   port: 8080
+  compression:
+    enabled: true   # Caddy compresses in production too; this keeps direct runs (CI, Lighthouse) realistic
+    mime-types: text/html,text/css,image/svg+xml,text/plain
   forward-headers-strategy: framework   # behind Caddy
   error:
     whitelabel:
