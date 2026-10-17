@@ -21,11 +21,26 @@
 				<div class="req" aria-hidden="true">
 					<div class="req-bar"><i></i><i></i><i></i></div>
 <pre><span class="m">GET</span> <span th:text="|/${lang}/projects|">/en/projects</span>
-<span class="ok">200 OK</span>  <span class="c" th:text="#{home.card.projects}">· 3 projects</span>
+<span class="ok">200 OK</span>  <span class="c" th:text="#{home.card.projects(${projects.size()})}">· 3 projects</span>
 
 <span class="m">GET</span> <span th:text="|/${lang}/certificates|">/en/certificates</span>
 <span class="ok">200 OK</span>  <span class="c">· Spring Boot 4 · Java 25</span></pre>
 				</div>
+			</div>
+		</section>
+
+		<section class="section" aria-labelledby="projects-title" th:unless="${projects.isEmpty()}">
+			<div class="wrap">
+				<div class="section-head">
+					<span class="eyebrow" th:text="#{projects.eyebrow}">Portfolio</span>
+					<h2 id="projects-title" th:text="#{home.projects.heading}">Selected projects</h2>
+					<p th:text="#{home.projects.lead}">Three projects that show how I automate processes.</p>
+				</div>
+				<ul class="cards">
+					<th:block th:each="project : ${projects}"><li th:replace="~{fragments/project-card :: card(${project}, 3)}"></li></th:block>
+				</ul>
+				<p class="section-more"><a th:href="@{/{l}/projects(l=${lang})}" th:text="#{home.projects.all}">All
+						projects</a></p>
 			</div>
 		</section>
 	</main>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/base :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="|${project.title} – Rahul Gurung|">Project – Rahul Gurung</title>
+</head>
+<body>
+	<main id="main">
+		<article>
+			<header class="hero">
+				<div class="wrap project-head">
+					<a class="back" th:href="@{/{l}/projects(l=${lang})}"><span aria-hidden="true">← </span><span
+							th:text="#{projects.back}">All projects</span></a>
+					<p class="eyebrow">
+						<span th:text="#{__${'projects.status.' + project.status}__}">Current</span><th:block
+							th:if="${project.startedOn}"> · <time th:datetime="${#temporals.format(project.startedOn, 'yyyy-MM')}"
+								th:text="${#temporals.format(project.startedOn, 'MM.yyyy')}">01.2026</time><th:block
+								th:if="${project.endedOn}">–<time th:datetime="${#temporals.format(project.endedOn, 'yyyy-MM')}"
+									th:text="${#temporals.format(project.endedOn, 'MM.yyyy')}">06.2026</time></th:block></th:block>
+					</p>
+					<h1 th:text="${project.title}">Project title</h1>
+					<p class="lead-text" th:text="${project.summary}">Summary</p>
+					<ul class="chips" th:if="${!project.technologies.isEmpty()}" th:aria-label="#{projects.technologies}">
+						<li th:each="technology : ${project.technologies}" th:text="${technology}">Java</li>
+					</ul>
+					<div class="actions" th:if="${project.repoUrl != null or project.demoUrl != null}">
+						<a th:if="${project.demoUrl}" class="btn btn-brand" th:href="${project.demoUrl}" rel="noopener"
+							th:text="#{projects.demo}">Live demo</a>
+						<a th:if="${project.repoUrl}" class="btn btn-outline-ink" th:href="${project.repoUrl}"
+							rel="noopener" th:text="#{projects.repo}">Source code</a>
+					</div>
+				</div>
+			</header>
+
+			<div class="section">
+				<div class="wrap project-body">
+					<div class="prose">
+						<p th:each="paragraph : ${project.paragraphs()}" th:text="${paragraph}">Description</p>
+					</div>
+					<div class="gallery" th:unless="${project.images.isEmpty()}">
+						<h2 th:text="#{projects.screenshots}">Screenshots</h2>
+						<figure th:each="image : ${project.images}">
+							<img th:src="@{/img/projects/{p}(p=${image.path})}" th:alt="${image.alt}" loading="lazy">
+						</figure>
+					</div>
+				</div>
+			</div>
+		</article>
+	</main>
+</body>
+</html>

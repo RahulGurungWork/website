@@ -1,10 +1,14 @@
 package ch.gurung.rahul.portfolio.home;
 
+import java.util.Locale;
+
 import ch.gurung.rahul.portfolio.common.Languages;
+import ch.gurung.rahul.portfolio.project.ProjectService;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
@@ -13,6 +17,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
  */
 @Controller
 public class HomeController {
+
+	private final ProjectService projectService;
+
+	public HomeController(ProjectService projectService) {
+		this.projectService = projectService;
+	}
 
 	/**
 	 * Sends visitors to {@code /en} or {@code /de} according to their browser language; English by default.
@@ -25,7 +35,8 @@ public class HomeController {
 	}
 
 	@GetMapping("/{lang:en|de}")
-	public String index() {
+	public String index(Locale locale, Model model) {
+		model.addAttribute("projects", this.projectService.publishedProjects(locale));
 		return "home/index";
 	}
 

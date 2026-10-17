@@ -1,13 +1,21 @@
 package ch.gurung.rahul.portfolio.home;
 
+import java.util.List;
+import java.util.Locale;
+
+import ch.gurung.rahul.portfolio.project.ProjectService;
+import ch.gurung.rahul.portfolio.project.ProjectStatus;
+import ch.gurung.rahul.portfolio.project.ProjectSummary;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.HttpHeaders;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -19,6 +27,9 @@ class HomeControllerTest {
 
 	@Autowired
 	private MockMvc mvc;
+
+	@MockitoBean
+	private ProjectService projectService;
 
 	@Test
 	void rootRedirectsGermanBrowserToGerman() throws Exception {
@@ -58,6 +69,24 @@ class HomeControllerTest {
 	void marksHomeAsCurrentPageAndListsAlternates() throws Exception {
 		assertThat(html("/en")).contains("<a href=\"/en\" aria-current=\"page\">Home</a>",
 				"<link rel=\"alternate\" hreflang=\"de\" href=\"http://localhost/de\">");
+	}
+
+	@Test
+	void showsProjectCardsAndCountInGerman() throws Exception {
+		given(this.projectService.publishedProjects(Locale.of("de"))).willReturn(List.of(
+				new ProjectSummary("n8n-workflow", "n8n-Workflow", "Ein Ablauf.", ProjectStatus.CURRENT, List.of("n8n"),
+						null),
+				new ProjectSummary("lerndoku-generator", "Lerndokumentations-Generator", "Ein Werkzeug.",
+						ProjectStatus.CURRENT, List.of("Java"), null)));
+
+		assertThat(html("/de")).contains("· 2 Projekte", "<h2 id=\"projects-title\">Ausgewählte Projekte</h2>",
+				"<h3>n8n-Workflow</h3>", "<h3>Lerndokumentations-Generator</h3>",
+				"href=\"/de/projects/lerndoku-generator\"", "Alle Projekte");
+	}
+
+	@Test
+	void hidesProjectSectionWithoutProjects() throws Exception {
+		assertThat(html("/en")).contains("· 0 projects").doesNotContain("Selected projects");
 	}
 
 	@Test

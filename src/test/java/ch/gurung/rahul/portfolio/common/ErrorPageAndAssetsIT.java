@@ -40,6 +40,25 @@ class ErrorPageAndAssetsIT {
 	}
 
 	@Test
+	void unknownProjectShowsStyledNotFound() throws Exception {
+		HttpResponse<String> response = get("/de/projects/does-not-exist");
+
+		assertThat(response.statusCode()).isEqualTo(404);
+		assertThat(response.body()).contains("Seite nicht gefunden");
+	}
+
+	@Test
+	void seededProjectPagesRenderEndToEnd() throws Exception {
+		HttpResponse<String> list = get("/en/projects");
+		assertThat(list.statusCode()).isEqualTo(200);
+		assertThat(list.body()).contains("Notion workspace prototype", "n8n workflow", "Learning documentation generator");
+
+		HttpResponse<String> detail = get("/de/projects/lerndoku-generator");
+		assertThat(detail.statusCode()).isEqualTo(200);
+		assertThat(detail.body()).contains("<h1>Lerndokumentations-Generator</h1>", "Ausführliche Beschreibung folgt.");
+	}
+
+	@Test
 	void servesStylesheets() throws Exception {
 		assertThat(get("/webjars/bootstrap/dist/css/bootstrap.min.css").statusCode()).isEqualTo(200);
 		assertThat(get("/css/site.css").statusCode()).isEqualTo(200);

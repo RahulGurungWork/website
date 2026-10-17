@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
 	/**
-	 * Published projects for the list page, with translations loaded.
+	 * Published projects for the list page, with what a card shows loaded.
 	 */
-	@EntityGraph(attributePaths = { "translations", "technologies" })
+	@EntityGraph(attributePaths = { "translations", "images", "technologies" })
 	List<Project> findByPublishedTrueOrderBySortOrderAsc();
 
 	/**

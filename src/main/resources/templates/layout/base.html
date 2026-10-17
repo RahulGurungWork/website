@@ -23,11 +23,11 @@ and supplies its own <title> and <main id="main">. Model attributes come from La
 					aria-hidden="true">R<span class="dot">.</span> Gurung</span><span class="visually-hidden"
 					th:text="#{nav.home}">Home</span></a>
 			<nav class="nav" th:aria-label="#{nav.label}">
-				<ul>
+				<ul class="nav-links">
 					<li><a th:href="@{/{l}(l=${l})}" th:aria-current="${page == ''} ? 'page' : null"
 							th:text="#{nav.home}">Home</a></li>
 					<li><a th:href="@{/{l}/projects(l=${l})}"
-							th:aria-current="${page == '/projects'} ? 'page' : null"
+							th:aria-current="${page == '/projects'} ? 'page' : (${#strings.startsWith(page, '/projects/')} ? 'true' : null)"
 							th:text="#{nav.projects}">Projects</a></li>
 					<li><a th:href="@{/{l}/certificates(l=${l})}"
 							th:aria-current="${page == '/certificates'} ? 'page' : null"
