@@ -16,6 +16,12 @@ spring:
     fallback-to-system-locale: false
   thymeleaf:
     cache: true
+  mail:
+    properties:
+      # Fail fast instead of hanging the contact form request if SMTP is unreachable
+      mail.smtp.connectiontimeout: 5000
+      mail.smtp.timeout: 5000
+      mail.smtp.writetimeout: 5000
 
 server:
   port: 8080
@@ -37,3 +43,6 @@ management:
 portfolio:
   contact:
     recipient: ${CONTACT_RECIPIENT:rahul@gurung.ch}
+    max-per-window: 5     # submissions per IP address ...
+    window: 10m           # ... within this window
+    retention: 365d       # privacy notice: messages deleted after one year

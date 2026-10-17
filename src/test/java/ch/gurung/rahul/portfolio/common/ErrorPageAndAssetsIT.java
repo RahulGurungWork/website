@@ -4,11 +4,16 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
+import java.net.URLEncoder;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 
 import ch.gurung.rahul.portfolio.TestcontainersConfiguration;
+import ch.gurung.rahul.portfolio.contact.ContactMessage;
+import ch.gurung.rahul.portfolio.contact.ContactMessageRepository;
 import org.junit.jupiter.api.Test;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -27,6 +32,9 @@ class ErrorPageAndAssetsIT {
 
 	@Value("${local.server.port}")
 	private int port;
+
+	@Autowired
+	private ContactMessageRepository contactMessages;
 
 	@Test
 	void unknownPageShowsStyledNotFoundInVisitorsLanguage() throws Exception {
@@ -64,6 +72,27 @@ class ErrorPageAndAssetsIT {
 				"C1 Advanced (Certificate in Advanced English)", "<time datetime=\"2026-07\">07.2026</time>");
 		assertThat(get("/de/legal-notice").statusCode()).isEqualTo(200);
 		assertThat(get("/de/privacy").body()).contains("Datenschutzerklärung");
+	}
+
+	/**
+	 * No SMTP server runs here, so the mail usually fails; either way the message must be stored.
+	 */
+	@Test
+	void contactFormStoresMessageAndRedirectsToConfirmation() throws Exception {
+		String marker = "End-to-end test " + System.nanoTime();
+		HttpRequest request = HttpRequest.newBuilder(URI.create("http://localhost:" + this.port + "/de/contact"))
+			.header("Content-Type", "application/x-www-form-urlencoded")
+			.POST(HttpRequest.BodyPublishers.ofString("name=Anna+Muster&email=anna%40example.ch&message="
+					+ URLEncoder.encode(marker, StandardCharsets.UTF_8) + "&website="))
+			.build();
+
+		HttpResponse<String> response = this.client.send(request, HttpResponse.BodyHandlers.ofString());
+
+		assertThat(response.statusCode()).isEqualTo(302);
+		assertThat(response.headers().firstValue("Location")).hasValueSatisfying(
+				(location) -> assertThat(location).endsWith("/de/contact/sent"));
+		assertThat(this.contactMessages.findAll()).extracting(ContactMessage::getMessage).contains(marker);
+		assertThat(get("/de/contact/sent").body()).contains("Vielen Dank!");
 	}
 
 	@Test

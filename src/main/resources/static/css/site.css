@@ -262,6 +262,32 @@ a:hover { color: var(--link); text-decoration-thickness: 2px; }
 .cert .issuer { color: var(--muted); }
 .cert time { font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--muted); }
 
+/* Contact */
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 2.5rem; align-items: start; }
+.contact-aside { display: grid; gap: 1rem; }
+.contact-aside .section-head { margin-bottom: 0; }
+.mail { font-family: var(--font-mono); font-size: 1.05rem; }
+form { display: grid; gap: 1.1rem; }
+.field { display: grid; gap: 0.35rem; }
+label { font-weight: 700; }
+.hint { font-size: 0.9rem; color: var(--muted); }
+.field input, .field textarea {
+  font: inherit; color: var(--fg); background: var(--bg);
+  border: 2px solid var(--slate); border-radius: var(--radius);
+  padding: 0.7rem 0.85rem; width: 100%;
+}
+.field input::placeholder { color: var(--muted); opacity: 1; }
+.field textarea { min-height: 9rem; resize: vertical; }
+.field [aria-invalid="true"] { border-color: var(--red-deep); }
+.field-error { font-size: 0.95rem; font-weight: 600; color: var(--link); }
+.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.form-status {
+  border-left: 4px solid var(--sun); background: var(--tint-soft);
+  padding: 0.75rem 1rem; border-radius: 0 var(--radius) var(--radius) 0;
+}
+.form-errors { border-left-color: var(--red); }
+.form-errors ul { margin: 0.5rem 0 0; padding-left: 1.25rem; }
+
 /* Legal pages */
 .legal h1 { font-size: var(--step-3); font-weight: 800; margin-bottom: 0.5rem; }
 .legal h2 { font-size: var(--step-1); font-weight: 700; margin-top: 1rem; }
@@ -282,7 +308,7 @@ a:hover { color: var(--link); text-decoration-thickness: 2px; }
 .site-footer small { opacity: 0.85; font-size: 0.9rem; }
 
 @media (max-width: 52rem) {
-  .hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .hero-grid, .contact-grid { grid-template-columns: minmax(0, 1fr); }
   .cert { grid-template-columns: minmax(0, 1fr) auto; }
   .cert .issuer { grid-column: 1; }
   .cert time { grid-column: 2; grid-row: 1; }
