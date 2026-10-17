@@ -1,9 +1,7 @@
 package ch.gurung.rahul.portfolio.project;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
@@ -53,7 +51,7 @@ public class Project {
 
 	@OneToMany(mappedBy = "project")
 	@OrderBy("sortOrder")
-	private List<ProjectImage> images = new ArrayList<>();
+	private Set<ProjectImage> images = new LinkedHashSet<>();
 
 	@ManyToMany
 	@JoinTable(name = "project_technology", joinColumns = @JoinColumn(name = "project_id"),
@@ -104,7 +102,7 @@ public class Project {
 		return this.translations;
 	}
 
-	public List<ProjectImage> getImages() {
+	public Set<ProjectImage> getImages() {
 		return this.images;
 	}
 

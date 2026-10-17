@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!--/* Project card. headingLevel is 2 on the projects page (under its h1) and 3 on the home page (under an h2). */-->
+<li class="card" th:fragment="card(project, headingLevel)">
+	<div class="shot">
+		<img th:if="${project.cover}" th:src="@{/img/projects/{p}(p=${project.cover.path})}"
+			th:alt="${project.cover.alt}" loading="lazy">
+		<span th:unless="${project.cover}" class="shot-label" th:text="#{projects.screenshotComing}">Screenshot
+			coming</span>
+	</div>
+	<div class="card-body">
+		<h2 th:if="${headingLevel == 2}" th:text="${project.title}">Project title</h2>
+		<h3 th:unless="${headingLevel == 2}" th:text="${project.title}">Project title</h3>
+		<p th:text="${project.summary}">Summary</p>
+		<ul class="chips" th:if="${!project.technologies.isEmpty()}" th:aria-label="#{projects.technologies}">
+			<li th:each="technology : ${project.technologies}" th:text="${technology}">Java</li>
+		</ul>
+	</div>
+	<div class="card-foot">
+		<a class="more" th:href="@{/{l}/projects/{slug}(l=${lang},slug=${project.slug})}"><span th:text="#{projects.more}">More</span><span class="visually-hidden"
+				th:text="' ' + #{projects.moreAbout(${project.title})}"> about Project title</span></a>
+	</div>
+</li>
+</body>
+</html>

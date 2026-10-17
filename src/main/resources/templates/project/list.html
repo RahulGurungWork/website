@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/base :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="#{projects.page.title}">Projects – Rahul Gurung</title>
+</head>
+<body>
+	<main id="main" class="section">
+		<div class="wrap">
+			<div class="section-head">
+				<span class="eyebrow" th:text="#{projects.eyebrow}">Portfolio</span>
+				<h1 th:text="#{projects.heading}">Projects</h1>
+				<p th:text="#{projects.lead}">Projects that show how I automate processes and build tools.</p>
+			</div>
+			<ul class="cards" th:unless="${projects.isEmpty()}">
+				<th:block th:each="project : ${projects}"><li th:replace="~{fragments/project-card :: card(${project}, 2)}"></li></th:block>
+			</ul>
+			<p th:if="${projects.isEmpty()}" th:text="#{projects.empty}">No projects are published yet.</p>
+		</div>
+	</main>
+</body>
+</html>
