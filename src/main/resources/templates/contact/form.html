@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/base :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="#{contact.page.title}">Contact – Rahul Gurung</title>
+</head>
+<body>
+	<main id="main" class="section">
+		<div class="wrap contact-grid">
+			<div class="contact-aside">
+				<div class="section-head">
+					<span class="eyebrow" th:text="#{contact.eyebrow}">Contact</span>
+					<h1 th:text="#{contact.heading}">Get in touch</h1>
+					<p th:text="#{contact.lead}">Questions about a project or an open position? Write to me.</p>
+				</div>
+				<p><span th:text="#{contact.direct}">Or by email:</span><br>
+					<a class="mail" href="mailto:rahul@gurung.ch">rahul@gurung.ch</a></p>
+			</div>
+
+			<form th:action="@{/{l}/contact(l=${lang})}" th:object="${contactForm}" method="post" novalidate>
+				<div class="form-status form-errors" role="alert" th:if="${#fields.hasErrors('*')}">
+					<p th:text="#{contact.errorSummary}">Please correct the following:</p>
+					<ul>
+						<th:block th:each="field : ${ {'name', 'email', 'message'} }">
+							<li th:if="${#fields.hasErrors(field)}"><a th:href="|#${field}|"
+									th:text="${#fields.errors(field)[0]}">Error</a></li>
+						</th:block>
+					</ul>
+				</div>
+
+				<div class="field">
+					<label for="name" th:text="#{contact.name}">Name</label>
+					<input th:field="*{name}" autocomplete="name" required maxlength="100"
+						th:aria-invalid="${#fields.hasErrors('name')} ? 'true' : null"
+						th:aria-describedby="${#fields.hasErrors('name')} ? 'name-error' : null">
+					<span class="field-error" id="name-error" th:if="${#fields.hasErrors('name')}"
+						th:text="${#fields.errors('name')[0]}">Error</span>
+				</div>
+
+				<div class="field">
+					<label for="email" th:text="#{contact.email}">Email</label>
+					<input th:field="*{email}" type="email" autocomplete="email" required maxlength="254"
+						th:placeholder="#{contact.emailPlaceholder}"
+						th:aria-invalid="${#fields.hasErrors('email')} ? 'true' : null"
+						th:aria-describedby="${#fields.hasErrors('email')} ? 'email-hint email-error' : 'email-hint'">
+					<span class="hint" id="email-hint" th:text="#{contact.emailHint}">Only used to reply, never
+						shared.</span>
+					<span class="field-error" id="email-error" th:if="${#fields.hasErrors('email')}"
+						th:text="${#fields.errors('email')[0]}">Error</span>
+				</div>
+
+				<div class="field">
+					<label for="message" th:text="#{contact.message}">Message</label>
+					<textarea th:field="*{message}" required maxlength="5000"
+						th:aria-invalid="${#fields.hasErrors('message')} ? 'true' : null"
+						th:aria-describedby="${#fields.hasErrors('message')} ? 'message-error' : null"></textarea>
+					<span class="field-error" id="message-error" th:if="${#fields.hasErrors('message')}"
+						th:text="${#fields.errors('message')[0]}">Error</span>
+				</div>
+
+				<!--/* Honeypot: hidden from people and screen readers; bots tend to fill every field. */-->
+				<div class="hp" aria-hidden="true">
+					<label for="website">Website</label>
+					<input th:field="*{website}" tabindex="-1" autocomplete="off">
+				</div>
+
+				<div><button class="btn btn-brand" type="submit" th:text="#{contact.send}">Send</button></div>
+			</form>
+		</div>
+	</main>
+</body>
+</html>
