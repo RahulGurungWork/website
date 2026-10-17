@@ -95,6 +95,19 @@ class ErrorPageAndAssetsIT {
 		assertThat(get("/de/contact/sent").body()).contains("Vielen Dank!");
 	}
 
+	/**
+	 * No SMTP server runs here; health must still be UP (CI's Lighthouse job waits for it).
+	 */
+	@Test
+	void healthIsUpWithoutMailServer() throws Exception {
+		HttpResponse<String> health = this.client.send(
+				HttpRequest.newBuilder(URI.create("http://localhost:" + this.port + "/actuator/health")).build(),
+				HttpResponse.BodyHandlers.ofString());
+
+		assertThat(health.statusCode()).isEqualTo(200);
+		assertThat(health.body()).contains("\"status\":\"UP\"").doesNotContain("\"mail\"");
+	}
+
 	@Test
 	void servesStylesheets() throws Exception {
 		assertThat(get("/webjars/bootstrap/dist/css/bootstrap.min.css").statusCode()).isEqualTo(200);

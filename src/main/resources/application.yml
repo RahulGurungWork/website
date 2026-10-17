@@ -53,6 +53,10 @@ management:
     health:
       probes:
         enabled: true
+  health:
+    mail:
+      # An SMTP outage must not mark the site as down: the contact form keeps the message and reports success
+      enabled: false
 
 portfolio:
   contact:
