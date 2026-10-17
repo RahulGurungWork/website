@@ -10,7 +10,8 @@ permissions:
 jobs:
   build:
     name: Build and test
-    runs-on: ubuntu-latest
+    # Pinned: Playwright 1.52 has no Chromium build for newer Ubuntu releases
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
 
@@ -20,7 +21,19 @@ jobs:
           java-version: '25'
           cache: maven
 
-      # Unit, feature and integration tests (Testcontainers uses the runner's Docker)
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('pom.xml') }}
+
+      # Browser tests (*BrowserIT, BrowserFlowsIT) need Chromium and its system libraries
+      - name: Install Chromium for Playwright
+        run: |
+          ./mvnw -B -q test-compile
+          ./mvnw -B -q exec:java -Dexec.mainClass=com.microsoft.playwright.CLI \
+            -Dexec.classpathScope=test -Dexec.args="install --with-deps chromium"
+
+      # Unit, feature, integration and browser tests (Testcontainers uses the runner's Docker)
       - name: Build and verify
         run: ./mvnw -B verify
 
@@ -35,4 +48,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # M7 adds: Playwright E2E + axe-core on the built container, Lighthouse CI.
+  # Still to come in M7: Lighthouse CI.

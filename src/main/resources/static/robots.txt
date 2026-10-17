@@ -1,0 +1,3 @@
+# Everything public may be indexed.
+User-agent: *
+Allow: /
