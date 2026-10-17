@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/base :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Privacy – Rahul Gurung</title>
+</head>
+<body>
+	<main id="main" class="section">
+		<!--/* Draft based on the planned setup (docs/adr/0004, deploy/). Review against the live server before
+			launch (M7/M8), and again whenever the setup changes. Not legal advice. */-->
+		<div class="wrap">
+			<div class="prose legal">
+			<h1>Privacy notice</h1>
+			<p>This notice explains which personal data this website processes and why. It follows the Swiss Federal Act
+				on Data Protection (FADP).</p>
+
+			<h2>Who is responsible</h2>
+			<p>Rahul Gurung, Switzerland, <a href="mailto:rahul@gurung.ch">rahul@gurung.ch</a>. Postal address: see the
+				<a th:href="@{/en/legal-notice}">legal notice</a>.</p>
+
+			<h2>Visiting the website</h2>
+			<p>When you open a page, your browser sends technical data such as your IP address, the page requested and
+				your browser type. The server uses this data only to deliver the page. It does not keep access
+				logs.</p>
+			<p>This website sets no cookies and uses no analytics, tracking or advertising. Fonts and stylesheets come
+				from this server, so opening a page contacts no other company.</p>
+
+			<h2>Contact form and email</h2>
+			<p>If you use the contact form, I process your name, your email address and your message. I use them only to
+				answer you. The message is stored in the website's database and sent to my mailbox. If you write to me
+				by email, the same applies.</p>
+			<p>I delete messages one year after I receive them. Backups of the
+				database are kept for up to four weeks, so a deleted message disappears from them at the latest four
+				weeks later.</p>
+
+			<h2>Where the data is processed</h2>
+			<p>The website, its database and my mailbox are hosted by Infomaniak Network SA in Switzerland. Your data is
+				not transferred abroad and not shared with anyone else, unless the law requires it.</p>
+
+			<h2>Links to other websites</h2>
+			<p>Links to GitHub and LinkedIn lead to websites of other companies. Their own privacy notices apply there.
+			</p>
+
+			<h2>Your rights</h2>
+			<p>You can ask which data I hold about you, and ask me to correct or delete it. Write to
+				<a href="mailto:rahul@gurung.ch">rahul@gurung.ch</a>. You can also complain to the Federal Data
+				Protection and Information Commissioner (FDPIC).</p>
+
+			<p class="eyebrow">Last updated: <span class="placeholder">[date]</span></p>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

@@ -251,6 +251,22 @@ a:hover { color: var(--link); text-decoration-thickness: 2px; }
 .gallery figure { margin: 0; }
 .gallery img { max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; }
 
+/* Certificates */
+.certs { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--fg); }
+.cert {
+  display: grid; gap: 0.25rem 1.5rem; align-items: baseline;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr) 7.5rem auto;
+  padding-block: 1.1rem; border-bottom: 1px solid var(--line);
+}
+.cert h2 { font-size: var(--step-1); font-weight: 700; }
+.cert .issuer { color: var(--muted); }
+.cert time { font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--muted); }
+
+/* Legal pages */
+.legal h1 { font-size: var(--step-3); font-weight: 800; margin-bottom: 0.5rem; }
+.legal h2 { font-size: var(--step-1); font-weight: 700; margin-top: 1rem; }
+.placeholder { background: var(--sun); color: var(--ink); padding: 0 0.25rem; border-radius: 3px; }
+
 /* Error pages */
 .error-page { display: grid; gap: 1rem; max-width: 40rem; }
 .error-page h1 { font-size: var(--step-3); font-weight: 800; }
@@ -267,6 +283,10 @@ a:hover { color: var(--link); text-decoration-thickness: 2px; }
 
 @media (max-width: 52rem) {
   .hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .cert { grid-template-columns: minmax(0, 1fr) auto; }
+  .cert .issuer { grid-column: 1; }
+  .cert time { grid-column: 2; grid-row: 1; }
+  .cert .cert-link { grid-column: 1 / -1; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .btn, .nav a { transition: background-color 0.15s, color 0.15s, border-color 0.15s; }

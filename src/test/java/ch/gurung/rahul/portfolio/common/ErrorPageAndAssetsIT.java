@@ -59,6 +59,14 @@ class ErrorPageAndAssetsIT {
 	}
 
 	@Test
+	void certificateAndLegalPagesRenderEndToEnd() throws Exception {
+		assertThat(get("/en/certificates").body()).contains("<h1>Certificates</h1>",
+				"C1 Advanced (Certificate in Advanced English)", "<time datetime=\"2026-07\">07.2026</time>");
+		assertThat(get("/de/legal-notice").statusCode()).isEqualTo(200);
+		assertThat(get("/de/privacy").body()).contains("Datenschutzerklärung");
+	}
+
+	@Test
 	void servesStylesheets() throws Exception {
 		assertThat(get("/webjars/bootstrap/dist/css/bootstrap.min.css").statusCode()).isEqualTo(200);
 		assertThat(get("/css/site.css").statusCode()).isEqualTo(200);

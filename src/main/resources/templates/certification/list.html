@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/base :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="#{certificates.page.title}">Certificates – Rahul Gurung</title>
+</head>
+<body>
+	<main id="main" class="section">
+		<div class="wrap">
+			<div class="section-head">
+				<span class="eyebrow" th:text="#{certificates.eyebrow}">Continuing education</span>
+				<h1 th:text="#{certificates.heading}">Certificates</h1>
+				<p th:text="#{certificates.lead}">Completed courses and exams, with a link to each credential.</p>
+			</div>
+			<ul class="certs" th:unless="${certifications.isEmpty()}">
+				<li class="cert" th:each="certification : ${certifications}">
+					<h2 th:text="${certification.name}">Certificate name</h2>
+					<span class="issuer" th:text="${certification.issuer}">Issuing body</span>
+					<time th:if="${certification.issuedOn}"
+						th:datetime="${#temporals.format(certification.issuedOn, 'yyyy-MM')}"
+						th:text="${#temporals.format(certification.issuedOn, 'MM.yyyy')}">06.2026</time>
+					<span th:unless="${certification.issuedOn}"></span>
+					<a th:if="${certification.credentialUrl}" class="cert-link" th:href="${certification.credentialUrl}"
+						rel="noopener"><span th:text="#{certificates.credential}">Credential</span><span
+							class="visually-hidden" th:text="' ' + #{certificates.credentialFor(${certification.name})}">
+							for Certificate name</span></a>
+				</li>
+			</ul>
+			<p th:if="${certifications.isEmpty()}" th:text="#{certificates.empty}">Certificates will be listed here
+				soon.</p>
+		</div>
+	</main>
+</body>
+</html>

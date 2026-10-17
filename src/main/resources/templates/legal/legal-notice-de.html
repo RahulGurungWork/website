@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/base :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Impressum – Rahul Gurung</title>
+</head>
+<body>
+	<main id="main" class="section">
+		<div class="wrap">
+			<div class="prose legal">
+			<h1>Impressum</h1>
+
+			<h2>Verantwortlich für diese Website</h2>
+			<p>Rahul Gurung<br>
+				Gfellerstrasse 25<br>
+				3175 Flamatt<br>
+				Schweiz</p>
+			<p>E-Mail: <a href="mailto:rahul@gurung.ch">rahul@gurung.ch</a><br>
+				Oder über das <a th:href="@{/de/contact}">Kontaktformular</a>.</p>
+
+			<h2>Zweck</h2>
+			<p>Dies ist eine private, nicht kommerzielle Website. Sie zeigt meine Projekte, Zertifikate und beruflichen
+				Erfahrungen.</p>
+
+			<h2>Haftung</h2>
+			<p>Ich erstelle die Inhalte dieser Website mit Sorgfalt, kann aber nicht garantieren, dass sie vollständig,
+				richtig und aktuell sind. Links führen zu Inhalten anderer Websites, auf die ich keinen Einfluss habe;
+				dafür sind deren Betreiber verantwortlich.</p>
+
+			<h2>Urheberrecht</h2>
+			<p>Texte, Bilder und Codebeispiele auf dieser Website stammen von mir, sofern nicht anders angegeben. Bitte
+				fragen Sie, bevor Sie sie weiterverwenden.</p>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

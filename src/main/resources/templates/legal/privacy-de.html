@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/base :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Datenschutz – Rahul Gurung</title>
+</head>
+<body>
+	<main id="main" class="section">
+		<!--/* Entwurf auf Basis des geplanten Setups (docs/adr/0004, deploy/). Vor dem Livegang (M7/M8) mit dem echten
+			Server abgleichen, und erneut bei jeder Änderung am Setup. Keine Rechtsberatung. */-->
+		<div class="wrap">
+			<div class="prose legal">
+			<h1>Datenschutzerklärung</h1>
+			<p>Diese Erklärung beschreibt, welche Personendaten diese Website bearbeitet und wozu. Sie richtet sich nach
+				dem Schweizer Datenschutzgesetz (DSG).</p>
+
+			<h2>Verantwortlich</h2>
+			<p>Rahul Gurung, Schweiz, <a href="mailto:rahul@gurung.ch">rahul@gurung.ch</a>. Postadresse: siehe
+				<a th:href="@{/de/legal-notice}">Impressum</a>.</p>
+
+			<h2>Besuch der Website</h2>
+			<p>Wenn Sie eine Seite aufrufen, sendet Ihr Browser technische Daten wie Ihre IP-Adresse, die aufgerufene
+				Seite und den Browsertyp. Der Server verwendet diese Daten nur, um die Seite auszuliefern. Er speichert
+				keine Zugriffsprotokolle.</p>
+			<p>Diese Website setzt keine Cookies und verwendet keine Analyse-, Tracking- oder Werbedienste. Schriften und
+				Stylesheets kommen von diesem Server; beim Aufruf einer Seite wird also kein anderes Unternehmen
+				kontaktiert.</p>
+
+			<h2>Kontaktformular und E-Mail</h2>
+			<p>Wenn Sie das Kontaktformular nutzen, bearbeite ich Ihren Namen, Ihre E-Mail-Adresse und Ihre Nachricht. Ich
+				verwende sie nur, um Ihnen zu antworten. Die Nachricht wird in der Datenbank der Website gespeichert und
+				an mein Postfach gesendet. Für E-Mails an mich gilt dasselbe.</p>
+			<p>Ich lösche Nachrichten ein Jahr nach Eingang.
+				Sicherungskopien der Datenbank werden bis zu vier Wochen aufbewahrt; eine gelöschte Nachricht
+				verschwindet daraus spätestens vier Wochen später.</p>
+
+			<h2>Wo die Daten bearbeitet werden</h2>
+			<p>Die Website, ihre Datenbank und mein Postfach werden von der Infomaniak Network SA in der Schweiz
+				betrieben. Ihre Daten werden nicht ins Ausland übermittelt und an niemanden weitergegeben, ausser das
+				Gesetz verlangt es.</p>
+
+			<h2>Links zu anderen Websites</h2>
+			<p>Links zu GitHub und LinkedIn führen zu Websites anderer Unternehmen. Dort gelten deren eigene
+				Datenschutzerklärungen.</p>
+
+			<h2>Ihre Rechte</h2>
+			<p>Sie können Auskunft verlangen, welche Daten ich über Sie habe, und deren Berichtigung oder Löschung
+				verlangen. Schreiben Sie an <a href="mailto:rahul@gurung.ch">rahul@gurung.ch</a>. Sie können sich
+				ausserdem beim Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB) beschweren.</p>
+
+			<p class="eyebrow">Stand: <span class="placeholder">[Datum]</span></p>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
