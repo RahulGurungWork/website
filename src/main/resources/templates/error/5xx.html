@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/base :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="#{error.5xx.title}">Something went wrong – Rahul Gurung</title>
+</head>
+<body>
+	<main id="main" class="section">
+		<div class="wrap">
+			<div class="error-page">
+				<p class="eyebrow" th:text="${status}">500</p>
+				<h1 th:text="#{error.5xx.heading}">Something went wrong</h1>
+				<p th:text="#{error.5xx.text}">The page could not be loaded. Please try again in a moment.</p>
+				<p><a class="btn btn-brand" th:href="@{/{l}(l=${lang} ?: 'en')}" th:text="#{error.home}">Back to the
+						home page</a></p>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

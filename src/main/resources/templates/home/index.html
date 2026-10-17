@@ -1,14 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html th:replace="~{layout/base :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title th:text="#{home.title}">Rahul Gurung – Portfolio</title>
 </head>
 <body>
-	<main>
-		<h1 th:text="#{home.title}">Rahul Gurung – Portfolio</h1>
-		<p th:text="#{home.placeholder}">Under construction.</p>
+	<main id="main">
+		<section class="hero" aria-labelledby="hero-title">
+			<div class="wrap hero-grid">
+				<div class="hero-copy">
+					<h1 id="hero-title"><span th:text="#{home.hello}">Hello!</span>
+						<strong th:text="#{home.name}">I'm Rahul Gurung.</strong></h1>
+					<p th:text="#{home.intro}">I build backend applications with Java and Spring Boot.</p>
+					<div class="actions">
+						<a class="btn btn-brand" th:href="@{/{l}/contact(l=${lang})}"
+							th:text="#{home.cta.contact}">Get in touch</a>
+						<a class="btn btn-outline-ink" th:href="@{/{l}/projects(l=${lang})}"
+							th:text="#{home.cta.projects}">See projects</a>
+					</div>
+				</div>
+				<div class="req" aria-hidden="true">
+					<div class="req-bar"><i></i><i></i><i></i></div>
+<pre><span class="m">GET</span> <span th:text="|/${lang}/projects|">/en/projects</span>
+<span class="ok">200 OK</span>  <span class="c" th:text="#{home.card.projects}">· 3 projects</span>
+
+<span class="m">GET</span> <span th:text="|/${lang}/certificates|">/en/certificates</span>
+<span class="ok">200 OK</span>  <span class="c">· Spring Boot 4 · Java 25</span></pre>
+				</div>
+			</div>
+		</section>
 	</main>
 </body>
 </html>
