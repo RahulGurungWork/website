@@ -85,6 +85,18 @@ class HomeControllerTest {
 	}
 
 	@Test
+	void showsApprenticeshipSkillsAndAbout() throws Exception {
+		assertThat(html("/en")).contains("training as an Informatiker EFZ",
+				"<h2 id=\"skills-title\">What I work with</h2>", "<h3>Frameworks and databases</h3>",
+				"<span>Spring Boot</span> <span class=\"level level-learning\">Learning</span>",
+				"<span>Notion</span> <span class=\"level level-strong\">Strong</span>",
+				"<h2 id=\"about-title\">About me</h2>", "philosophy club", "Nepali, basic");
+		assertThat(html("/de")).contains("Lehre als Informatiker EFZ Applikationsentwicklung",
+				"<span>Java</span> <span class=\"level level-comfortable\">Sicher</span>", "<h2 id=\"about-title\">Über mich</h2>",
+				"Tischtennis");
+	}
+
+	@Test
 	void hidesProjectSectionWithoutProjects() throws Exception {
 		assertThat(html("/en")).contains("· 0 projects").doesNotContain("Selected projects");
 	}

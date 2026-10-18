@@ -59,7 +59,7 @@ class ProjectRepositoryIT {
 
 		assertThat(project.getStatus()).isEqualTo(ProjectStatus.CURRENT);
 		assertThat(project.getTechnologies()).extracting(Technology::getName)
-			.containsExactlyInAnyOrder("n8n", "REST API");
+			.containsExactlyInAnyOrder("n8n", "Abacus", "Excel");
 		assertThat(project.translation(Locale.GERMAN)).hasValueSatisfying(
 				(translation) -> assertThat(translation.getTitle()).isEqualTo("n8n-Workflow"));
 		assertThat(project.translation(Locale.forLanguageTag("en-CH"))).hasValueSatisfying(

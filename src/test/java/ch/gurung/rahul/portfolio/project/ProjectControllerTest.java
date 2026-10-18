@@ -56,8 +56,8 @@ class ProjectControllerTest {
 						List.of(new ProjectDetail.Image("n8n-workflow/flow.webp", "The workflow canvas")))));
 
 		assertThat(html("/en/projects/n8n-workflow")).contains("<title>n8n workflow – Rahul Gurung</title>",
-				"<h1>n8n workflow</h1>", "Past project", "<time datetime=\"2025-03\">03.2025</time>",
-				"<time datetime=\"2025-09\">09.2025</time>", "<p>First paragraph.</p>", "<p>Second paragraph.</p>",
+				"<h1>n8n workflow</h1>", "Past project", "<time datetime=\"2025\">2025</time>",
+				"<p>First paragraph.</p>", "<p>Second paragraph.</p>",
 				"href=\"https://github.com/RahulGurungWork/n8n\"",
 				"<img src=\"/img/projects/n8n-workflow/flow.webp\" alt=\"The workflow canvas\"",
 				"<a href=\"/en/projects\" aria-current=\"true\">Projects</a>",

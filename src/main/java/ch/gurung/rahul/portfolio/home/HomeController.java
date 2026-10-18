@@ -37,6 +37,7 @@ public class HomeController {
 	@GetMapping("/{lang:en|de}")
 	public String index(Locale locale, Model model) {
 		model.addAttribute("projects", this.projectService.publishedProjects(locale));
+		model.addAttribute("skillGroups", Skills.ALL);
 		return "home/index";
 	}
 

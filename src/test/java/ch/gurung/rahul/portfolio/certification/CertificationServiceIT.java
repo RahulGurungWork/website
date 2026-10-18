@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Service against real PostgreSQL with the certifications seeded by V3.
+ * Service against real PostgreSQL with the certifications seeded by V3 and grouped by V5.
  */
 @DataJpaTest
 @Import({ CertificationService.class, TestcontainersConfiguration.class })
@@ -29,18 +29,35 @@ class CertificationServiceIT {
 		assertThat(certifications).hasSize(26);
 		assertThat(certifications).first()
 			.isEqualTo(new CertificationEntry("C1 Advanced (Certificate in Advanced English)",
-					"Cambridge University Press & Assessment", LocalDate.of(2026, 7, 19), null));
-		assertThat(certifications).extracting(CertificationEntry::name)
-			.containsSubsequence("English course, level C1 (52 lessons)", "Lead Link, Kreis BI-Lernende",
-					"Learn GitHub: Introduction", "Learn Bash Scripting", "Set Your Workspace Up For Success",
-					"Learn What to Learn");
+					"Cambridge University Press & Assessment", LocalDate.of(2026, 7, 19), null,
+					CertificationCategory.LANGUAGE_AND_SCHOOL));
 	}
 
 	@Test
-	void everyCertificationHasNameAndIssuer() {
+	void groupsSeededCertificationsInCategoryOrder() {
+		List<CertificationEntry.Group> groups = this.service.groupedCertifications();
+
+		assertThat(groups).extracting(CertificationEntry.Group::category)
+			.containsExactly(CertificationCategory.LANGUAGE_AND_SCHOOL, CertificationCategory.TECHNICAL,
+					CertificationCategory.PROFESSIONAL);
+		assertThat(groups.get(0).entries()).extracting(CertificationEntry::name)
+			.containsExactly("C1 Advanced (Certificate in Advanced English)", "English course, level C1 (52 lessons)");
+		assertThat(groups.get(1).entries()).extracting(CertificationEntry::name)
+			.containsExactly("Learn GitHub: Introduction", "Introduction to UI and UX Design",
+					"Operating Systems: Introduction", "Intro to Generative AI", "Learn Bootstrap",
+					"Learn Bash Scripting");
+		assertThat(groups.get(2).entries()).hasSize(18)
+			.first()
+			.extracting(CertificationEntry::name)
+			.isEqualTo("Lead Link, Kreis BI-Lernende");
+	}
+
+	@Test
+	void everyCertificationHasNameIssuerAndCategory() {
 		assertThat(this.service.certifications()).allSatisfy((certification) -> {
 			assertThat(certification.name()).isNotBlank();
 			assertThat(certification.issuer()).isNotBlank();
+			assertThat(certification.category()).isNotNull();
 		});
 	}
 
