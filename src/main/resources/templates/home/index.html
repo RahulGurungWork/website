@@ -84,6 +84,8 @@
 						<li th:text="#{about.lang.en}">English</li>
 						<li th:text="#{about.lang.ne}">Nepali</li>
 					</ul>
+					<p><a class="btn btn-outline-ink" th:href="@{/{l}/cv.pdf(l=${lang})}" th:text="#{cv.download}">Download
+							CV (PDF)</a></p>
 				</div>
 			</div>
 		</section>

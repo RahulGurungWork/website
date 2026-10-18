@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--/* CV, rendered to PDF by CvService. OpenHTMLToPDF supports CSS 2.1 only: no flexbox or grid. No @{...} links:
+	there is no web request in this context, so all URLs are built from siteUrl. */-->
+<html th:lang="${lang}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="#{cv.title}">Curriculum vitae – Rahul Gurung</title>
+	<meta name="author" content="Rahul Gurung">
+	<style>
+		@page { size: A4; margin: 14mm 15mm 16mm 15mm;
+			@bottom-center { content: element(footer); } }
+		body { font-family: sans-serif; font-size: 9pt; line-height: 1.35; color: #32373B; margin: 0; }
+		a { color: #A8303E; text-decoration: none; }
+		.footer { position: running(footer); font-size: 7.5pt; color: #4A5859; text-align: center; }
+		header { border-bottom: 2.5pt solid #C83E4D; padding-bottom: 8pt; margin-bottom: 4pt; }
+		h1 { font-size: 22pt; margin: 0; letter-spacing: -0.3pt; }
+		.role { font-size: 11pt; color: #A8303E; font-weight: bold; margin: 2pt 0 5pt; }
+		.contact { font-size: 8.5pt; color: #4A5859; }
+		h2 { font-size: 11pt; text-transform: uppercase; letter-spacing: 0.8pt; color: #A8303E;
+			border-bottom: 0.75pt solid #E6D9D4; padding-bottom: 2pt; margin: 10pt 0 5pt; }
+		p { margin: 0 0 4pt; }
+		.entry { margin-bottom: 5pt; page-break-inside: avoid; }
+		.entry.compact { margin-bottom: 1.5pt; }
+		.entry-head { width: 100%; border-collapse: collapse; }
+		.entry-head td { padding: 0; vertical-align: top; }
+		.entry-title { font-weight: bold; }
+		.entry-when { text-align: right; white-space: nowrap; color: #4A5859; width: 42%; }
+		.columns { width: 100%; border-collapse: collapse; }
+		.columns td { width: 50%; vertical-align: top; padding: 0; }
+		.columns td + td { padding-left: 14pt; }
+		.muted { color: #4A5859; }
+		.tags { font-size: 8pt; color: #4A5859; }
+		.skills td { padding: 1.5pt 10pt 1.5pt 0; vertical-align: top; }
+		.skills td.group { font-weight: bold; width: 28%; }
+		ul { margin: 0; padding-left: 12pt; }
+		li { margin-bottom: 1.5pt; }
+	</style>
+</head>
+<body>
+	<div class="footer"><span th:text="#{cv.footer(${siteUrl} + '/' + ${lang})}">Current version: site</span></div>
+
+	<header>
+		<h1>Rahul Gurung</h1>
+		<p class="role" th:text="#{cv.role}">Informatiker EFZ Applikationsentwicklung, in training</p>
+		<p class="contact"><span th:text="#{cv.location}">Flamatt, Switzerland</span> · <a
+				href="mailto:rahul@gurung.ch">rahul@gurung.ch</a> · <a th:href="${siteUrl} + '/' + ${lang}"
+				th:text="${#strings.replace(#strings.replace(siteUrl, 'https://', ''), 'http://', '')}">portfolio</a>
+			· <a href="https://www.linkedin.com/in/rahul-gurung-4076a1339/">LinkedIn</a> · <a
+				href="https://github.com/RahulGurungWork">GitHub</a></p>
+	</header>
+
+	<h2 th:text="#{cv.profile}">Profile</h2>
+	<p th:text="#{home.intro}">Profile text.</p>
+	<p th:text="#{about.motivation}">Motivation.</p>
+
+	<h2 th:text="#{cv.education}">Education</h2>
+	<div class="entry">
+		<table class="entry-head"><tr>
+			<td class="entry-title" th:text="#{cv.apprenticeship}">Apprenticeship</td>
+			<td class="entry-when" th:text="#{cv.apprenticeship.dates}">08.2025 – 08.2029</td>
+		</tr></table>
+		<p class="muted">gibb Berufsfachschule Bern</p>
+	</div>
+	<div class="entry">
+		<p class="entry-title" th:text="#{cv.vorlehre}">Pre-apprenticeship</p>
+		<p th:text="#{cv.vorlehre.text}">Figma, prompt engineering, project planning.</p>
+	</div>
+
+	<h2 th:text="#{cv.projects}">Projects</h2>
+	<div class="entry" th:each="project : ${projects}">
+		<table class="entry-head"><tr>
+			<td class="entry-title" th:text="${project.title}">Project</td>
+			<td class="entry-when"><span th:text="#{__${'projects.status.' + project.status}__}">Past project</span><th:block
+					th:if="${project.startedOn}"> · <span th:text="${project.startedOn.year}">2025</span><th:block
+					th:if="${project.endedOn != null and project.endedOn.year != project.startedOn.year}">–<span
+						th:text="${project.endedOn.year}">2026</span></th:block></th:block></td>
+		</tr></table>
+		<p th:text="${project.summary}">Summary.</p>
+		<p class="tags" th:unless="${project.technologies.isEmpty()}"
+			th:text="${#strings.listJoin(project.technologies, ' · ')}">Java · SQL</p>
+	</div>
+
+	<h2 th:text="#{cv.skills}">Skills</h2>
+	<table class="skills">
+		<tr th:each="group : ${skillGroups}">
+			<td class="group" th:text="#{__${'skills.group.' + group.key}__}">Languages</td>
+			<td><th:block th:each="skill, it : ${group.skills}"><span th:text="${skill.name}">Java</span> <span
+					class="muted" th:text="|(#{__${'skills.level.' + skill.level}__})|">(comfortable)</span><th:block
+					th:unless="${it.last}"> · </th:block></th:block></td>
+		</tr>
+	</table>
+
+	<h2 th:text="#{cv.certificates}">Certificates</h2>
+	<th:block th:each="group : ${certificationGroups}">
+		<th:block th:if="${group.category.name() != 'PROFESSIONAL'}">
+			<div class="entry compact" th:each="certification : ${group.entries}">
+				<table class="entry-head"><tr>
+					<td><span class="entry-title" th:text="${certification.name}">Certificate</span>, <span class="muted"
+							th:text="${certification.issuer}">Issuer</span></td>
+					<td class="entry-when" th:text="${certification.issuedOn} ? ${#temporals.format(certification.issuedOn, 'MM.yyyy')} : ''">06.2026</td>
+				</tr></table>
+			</div>
+		</th:block>
+		<p th:if="${group.category.name() == 'PROFESSIONAL'}"
+			th:text="#{cv.professionalCourses(${group.entries.size()})}">18 further courses, listed on the website.</p>
+	</th:block>
+
+	<table class="columns"><tr>
+		<td>
+			<h2 th:text="#{about.languages}">Languages</h2>
+			<p><span th:text="#{about.lang.de}">German</span><br><span th:text="#{about.lang.en}">English</span><br><span
+					th:text="#{about.lang.ne}">Nepali</span></p>
+		</td>
+		<td>
+			<h2 th:text="#{cv.interests}">Interests</h2>
+			<p th:text="#{cv.interests.text}">Philosophy club, table tennis.</p>
+		</td>
+	</tr></table>
+</body>
+</html>
