@@ -59,11 +59,11 @@ class ErrorPageAndAssetsIT {
 	void seededProjectPagesRenderEndToEnd() throws Exception {
 		HttpResponse<String> list = get("/en/projects");
 		assertThat(list.statusCode()).isEqualTo(200);
-		assertThat(list.body()).contains("Notion workspace prototype", "n8n workflow", "Learning documentation generator");
+		assertThat(list.body()).contains("Notion project management board", "n8n workflow", "Learning documentation generator");
 
 		HttpResponse<String> detail = get("/de/projects/lerndoku-generator");
 		assertThat(detail.statusCode()).isEqualTo(200);
-		assertThat(detail.body()).contains("<h1>Lerndokumentations-Generator</h1>", "Ausführliche Beschreibung folgt.");
+		assertThat(detail.body()).contains("<h1>Lerndokumentations-Generator</h1>", "Kolbs Lernzyklus", "<time datetime=\"2025\">2025</time>", "<li>Python</li>");
 	}
 
 	@Test

@@ -15,7 +15,7 @@ public class CertificationController {
 
 	@GetMapping("/{lang:en|de}/certificates")
 	public String list(Model model) {
-		model.addAttribute("certifications", this.certificationService.certifications());
+		model.addAttribute("groups", this.certificationService.groupedCertifications());
 		return "certification/list";
 	}
 

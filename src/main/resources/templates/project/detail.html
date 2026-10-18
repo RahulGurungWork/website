@@ -13,10 +13,10 @@
 								th:text="#{projects.back}">All projects</span></a>
 						<p class="eyebrow">
 							<span th:text="#{__${'projects.status.' + project.status}__}">Current</span><th:block
-								th:if="${project.startedOn}"> · <time th:datetime="${#temporals.format(project.startedOn, 'yyyy-MM')}"
-									th:text="${#temporals.format(project.startedOn, 'MM.yyyy')}">01.2026</time><th:block
-									th:if="${project.endedOn}">–<time th:datetime="${#temporals.format(project.endedOn, 'yyyy-MM')}"
-										th:text="${#temporals.format(project.endedOn, 'MM.yyyy')}">06.2026</time></th:block></th:block>
+								th:if="${project.startedOn}"> · <time th:datetime="${project.startedOn.year}"
+									th:text="${project.startedOn.year}">2025</time><th:block
+									th:if="${project.endedOn != null and project.endedOn.year != project.startedOn.year}">–<time
+										th:datetime="${project.endedOn.year}" th:text="${project.endedOn.year}">2026</time></th:block></th:block>
 						</p>
 						<h1 th:text="${project.title}">Project title</h1>
 						<p class="lead-text" th:text="${project.summary}">Summary</p>

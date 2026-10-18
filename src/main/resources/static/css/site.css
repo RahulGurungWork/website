@@ -38,6 +38,7 @@
   --font-mono: "Atkinson Hyperlegible Mono", "Cascadia Mono", Consolas, monospace;
 
   --step-1: 1.25rem;
+  --step-2: 1.6rem;
   --step-3: clamp(2rem, 1.4rem + 2.6vw, 3.2rem);
   --radius: 6px;
   --wrap: 70rem;
@@ -291,6 +292,29 @@ a:hover { color: var(--link); text-decoration-thickness: 2px; }
 .gallery figure { margin: 0; }
 .gallery img { max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 10px; }
 
+/* Skills */
+.skills-band { background: var(--tint-soft); border-block: 1px solid var(--line); }
+.skill-groups {
+  display: grid; gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+.skill-group { background: var(--card-bg); border: 1px solid var(--line); border-radius: 10px; padding: 1.25rem; }
+.skill-group h3 { font-size: var(--step-1); font-weight: 700; margin-bottom: 0.75rem; }
+.skill-group ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.skill-group li { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.level {
+  font: 600 0.75rem var(--font-mono); letter-spacing: 0.03em; white-space: nowrap;
+  padding: 0.1rem 0.5rem; border-radius: 4px; border: 1px solid transparent;
+}
+.level-learning { color: var(--fg); border-color: var(--muted); }
+.level-comfortable { background: var(--sun); color: var(--ink); }
+.level-strong { background: var(--fg); color: var(--bg); }
+
+/* About */
+.about-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 2.5rem; align-items: start; }
+.about-grid h3 { font-size: var(--step-1); font-weight: 700; margin-top: 0.5rem; }
+.plain-list { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.25rem; }
+
 /* Certificates */
 .certs { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--fg); }
 .cert {
@@ -298,7 +322,9 @@ a:hover { color: var(--link); text-decoration-thickness: 2px; }
   grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr) 7.5rem auto;
   padding-block: 1.1rem; border-bottom: 1px solid var(--line);
 }
-.cert h2 { font-size: var(--step-1); font-weight: 700; }
+.cert-group + .cert-group { margin-top: 3rem; }
+.cert-group > h2 { font-size: var(--step-2); font-weight: 800; margin-bottom: 0.75rem; }
+.cert h3 { font-size: var(--step-1); font-weight: 700; }
 .cert .issuer { color: var(--muted); }
 .cert time { font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--muted); }
 
@@ -331,7 +357,8 @@ label { font-weight: 700; }
 /* Legal pages */
 .legal h1 { font-size: var(--step-3); font-weight: 800; margin-bottom: 0.5rem; }
 .legal h2 { font-size: var(--step-1); font-weight: 700; margin-top: 1rem; }
-.placeholder { background: var(--sun); color: var(--ink); padding: 0 0.25rem; border-radius: 3px; }
+/* Content still to fill in. Not ".placeholder": Bootstrap uses that name for loading skeletons */
+.todo-mark { background: var(--sun); color: var(--ink); padding: 0 0.25rem; border-radius: 3px; }
 
 /* Error pages */
 .error-page { display: grid; gap: 1rem; max-width: 40rem; }
@@ -348,7 +375,7 @@ label { font-weight: 700; }
 .site-footer small { opacity: 0.85; font-size: 0.9rem; }
 
 @media (max-width: 52rem) {
-  .hero-grid, .contact-grid, .project-hero { grid-template-columns: minmax(0, 1fr); }
+  .hero-grid, .contact-grid, .project-hero, .about-grid { grid-template-columns: minmax(0, 1fr); }
   .cert { grid-template-columns: minmax(0, 1fr) auto; }
   .cert .issuer { grid-column: 1; }
   .cert time { grid-column: 2; grid-row: 1; }

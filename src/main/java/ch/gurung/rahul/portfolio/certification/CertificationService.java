@@ -1,5 +1,6 @@
 package ch.gurung.rahul.portfolio.certification;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -21,7 +22,20 @@ public class CertificationService {
 	public List<CertificationEntry> certifications() {
 		return this.certifications.findAllByOrderBySortOrderAsc()
 			.stream()
-			.map((c) -> new CertificationEntry(c.getName(), c.getIssuer(), c.getIssuedOn(), c.getCredentialUrl()))
+			.map((c) -> new CertificationEntry(c.getName(), c.getIssuer(), c.getIssuedOn(), c.getCredentialUrl(),
+					c.getCategory()))
+			.toList();
+	}
+
+	/**
+	 * Certifications grouped by category, in the order of {@link CertificationCategory}; empty groups are left out.
+	 */
+	public List<CertificationEntry.Group> groupedCertifications() {
+		List<CertificationEntry> all = certifications();
+		return Arrays.stream(CertificationCategory.values())
+			.map((category) -> new CertificationEntry.Group(category,
+					all.stream().filter((entry) -> entry.category() == category).toList()))
+			.filter((group) -> !group.entries().isEmpty())
 			.toList();
 	}
 

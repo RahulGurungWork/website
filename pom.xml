@@ -19,6 +19,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<playwright.version>1.52.0</playwright.version>
 		<axe-core-playwright.version>4.10.1</axe-core-playwright.version>
+		<openhtmltopdf.version>1.0.10</openhtmltopdf.version>
+		<jsoup.version>1.17.2</jsoup.version>
 	</properties>
 
 	<dependencies>
@@ -49,6 +51,17 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
+		</dependency>
+		<!-- CV as PDF: Thymeleaf renders HTML, jsoup turns it into a DOM, OpenHTMLToPDF lays it out -->
+		<dependency>
+			<groupId>com.openhtmltopdf</groupId>
+			<artifactId>openhtmltopdf-pdfbox</artifactId>
+			<version>${openhtmltopdf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>${jsoup.version}</version>
 		</dependency>
 		<!-- Bootstrap CSS served from the app itself (no CDN); the locator resolves /webjars/bootstrap/... -->
 		<dependency>

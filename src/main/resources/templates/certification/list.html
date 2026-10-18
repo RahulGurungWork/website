@@ -9,24 +9,28 @@
 			<div class="section-head">
 				<span class="eyebrow" th:text="#{certificates.eyebrow}">Continuing education</span>
 				<h1 th:text="#{certificates.heading}">Certificates</h1>
-				<p th:text="#{certificates.lead}">Completed courses and exams, with a link to each credential.</p>
+				<p th:text="#{certificates.lead}">Completed exams, courses and roles.</p>
 			</div>
-			<ul class="certs" th:unless="${certifications.isEmpty()}">
-				<li class="cert" th:each="certification : ${certifications}">
-					<h2 th:text="${certification.name}">Certificate name</h2>
-					<span class="issuer" th:text="${certification.issuer}">Issuing body</span>
-					<time th:if="${certification.issuedOn}"
-						th:datetime="${#temporals.format(certification.issuedOn, 'yyyy-MM')}"
-						th:text="${#temporals.format(certification.issuedOn, 'MM.yyyy')}">06.2026</time>
-					<span th:unless="${certification.issuedOn}"></span>
-					<a th:if="${certification.credentialUrl}" class="cert-link" th:href="${certification.credentialUrl}"
-						rel="noopener"><span th:text="#{certificates.credential}">Credential</span><span
-							class="visually-hidden" th:text="' ' + #{certificates.credentialFor(${certification.name})}">
-							for Certificate name</span></a>
-				</li>
-			</ul>
-			<p th:if="${certifications.isEmpty()}" th:text="#{certificates.empty}">Certificates will be listed here
-				soon.</p>
+			<section class="cert-group" th:each="group : ${groups}"
+				th:aria-labelledby="|cert-${#strings.toLowerCase(group.category)}|">
+				<h2 th:id="|cert-${#strings.toLowerCase(group.category)}|"
+					th:text="#{__${'certificates.group.' + group.category}__}">Technical</h2>
+				<ul class="certs">
+					<li class="cert" th:each="certification : ${group.entries}">
+						<h3 th:text="${certification.name}">Certificate name</h3>
+						<span class="issuer" th:text="${certification.issuer}">Issuing body</span>
+						<time th:if="${certification.issuedOn}"
+							th:datetime="${#temporals.format(certification.issuedOn, 'yyyy-MM')}"
+							th:text="${#temporals.format(certification.issuedOn, 'MM.yyyy')}">06.2026</time>
+						<span th:unless="${certification.issuedOn}"></span>
+						<a th:if="${certification.credentialUrl}" class="cert-link" th:href="${certification.credentialUrl}"
+							rel="noopener"><span th:text="#{certificates.credential}">Credential</span><span
+								class="visually-hidden" th:text="' ' + #{certificates.credentialFor(${certification.name})}">
+								for Certificate name</span></a>
+					</li>
+				</ul>
+			</section>
+			<p th:if="${groups.isEmpty()}" th:text="#{certificates.empty}">Certificates will be listed here soon.</p>
 		</div>
 	</main>
 </body>

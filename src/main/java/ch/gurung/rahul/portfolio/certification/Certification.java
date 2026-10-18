@@ -3,6 +3,8 @@ package ch.gurung.rahul.portfolio.certification;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,6 +28,9 @@ public class Certification {
 	private String credentialUrl;
 
 	private int sortOrder;
+
+	@Enumerated(EnumType.STRING)
+	private CertificationCategory category;
 
 	protected Certification() {
 	}
@@ -52,6 +57,10 @@ public class Certification {
 
 	public int getSortOrder() {
 		return this.sortOrder;
+	}
+
+	public CertificationCategory getCategory() {
+		return this.category;
 	}
 
 }
