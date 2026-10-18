@@ -36,3 +36,4 @@ test-results/
 .DS_Store
 Thumbs.db
 desktop.ini
+lighthouse-reports/

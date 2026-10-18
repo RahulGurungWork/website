@@ -15,7 +15,8 @@ public class ContactForm {
 	private String name = "";
 
 	@NotBlank(message = "{contact.email.required}")
-	@Email(regexp = "[^@\\s]+@[^@\\s]+\\.[^@\\s]+", message = "{contact.email.invalid}")
+	// The pattern accepts "" so an empty field reports only "required", never both messages in random order
+	@Email(regexp = "|[^@\\s]+@[^@\\s]+\\.[^@\\s]+", message = "{contact.email.invalid}")
 	@Size(max = 254, message = "{contact.email.invalid}")
 	private String email = "";
 

@@ -17,6 +17,8 @@
 	<properties>
 		<java.version>25</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<playwright.version>1.52.0</playwright.version>
+		<axe-core-playwright.version>4.10.1</axe-core-playwright.version>
 	</properties>
 
 	<dependencies>
@@ -124,6 +126,19 @@
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>testcontainers-postgresql</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- Browser tests (*BrowserIT): Playwright downloads Chromium on first use; axe-core checks accessibility -->
+		<dependency>
+			<groupId>com.microsoft.playwright</groupId>
+			<artifactId>playwright</artifactId>
+			<version>${playwright.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.deque.html.axe-core</groupId>
+			<artifactId>playwright</artifactId>
+			<version>${axe-core-playwright.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

@@ -11,6 +11,9 @@ and supplies its own <title> and <main id="main">. Model attributes come from La
 	<meta name="description" th:content="#{site.description}">
 	<link th:each="alternate : ${alternateUrls}" rel="alternate" th:hreflang="${alternate.key}"
 		th:href="${alternate.value}">
+	<link rel="icon" th:href="@{/favicon.ico}" sizes="32x32">
+	<link rel="icon" th:href="@{/favicon.svg}" type="image/svg+xml">
+	<link rel="apple-touch-icon" th:href="@{/apple-touch-icon.png}">
 	<link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}">
 	<link rel="stylesheet" th:href="@{/css/site.css}">
 </head>
