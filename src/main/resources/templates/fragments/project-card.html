@@ -6,8 +6,9 @@
 	<div class="shot">
 		<img th:if="${project.cover}" th:src="@{/img/projects/{p}(p=${project.cover.path})}"
 			th:alt="${project.cover.alt}" loading="lazy">
-		<span th:unless="${project.cover}" class="shot-label" th:text="#{projects.screenshotComing}">Screenshot
-			coming</span>
+		<!--/* th:replace runs before th:unless on the same element, hence the wrapper */-->
+		<th:block th:unless="${project.cover}"><th:block
+				th:replace="~{fragments/project-art :: art(${project.slug})}"></th:block></th:block>
 	</div>
 	<div class="card-body">
 		<h2 th:if="${headingLevel == 2}" th:text="${project.title}">Project title</h2>
