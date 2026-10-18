@@ -2,7 +2,7 @@
 #   docker compose pull && docker compose up -d
 services:
   app:
-    image: ${APP_IMAGE:-ghcr.io/OWNER/portfolio:latest}
+    image: ${APP_IMAGE:-ghcr.io/rahulgurungwork/portfolio:latest}
     restart: unless-stopped
     env_file: .env
     environment:

@@ -18,5 +18,5 @@ Playwright downloads Chromium on first use. On Linux it also needs system librar
 
 Playwright 1.52 supports Ubuntu up to 24.04, so CI is pinned to `ubuntu-24.04`.
 
-Still open: the post-deploy smoke test (M8) and the manual checks in the test concept (NVDA, keyboard-only use,
-200% zoom).
+The post-deploy smoke test is `deploy/smoke-test.sh` (run by the Deploy workflow). Still open: the manual checks in
+`docs/hermes/06-test-results.md` (NVDA, keyboard-only use, 200% zoom).
