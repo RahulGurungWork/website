@@ -10,7 +10,7 @@ HERMES phase: Initialization. Status: approved 2026-10-15.
 | Target audience | Recruiters, hiring managers, research group leads |
 | Release 1 (MVP) | Public site with three showcase projects, certifications page, contact form, Impressum, privacy notice; EN + DE |
 | Hostname | www.portfolio.rahul.gurung.ch (domain gurung.ch registered at Infomaniak, 2 years) |
-| Hosting | Infomaniak VPS Lite (Swiss), ordered at the start of M7/M8, not before |
+| Hosting | Infomaniak VPS Lite (Swiss), 2 vCPU / 4 GB, ordered 2026-10-23 (CHF 93.40/year incl. VAT); placeholder page live |
 | Contact mailbox | rahul@gurung.ch (free kSuite address; SMTP tested) |
 | Budget | Max 15 CHF/month all-in |
 | Time | 3 h/week (Option A), start Monday 2026-10-19, go-live around 2027-01-10, buffer until 2027-01-17 |

@@ -1,6 +1,8 @@
 # Roadmap
 
-Option A: one 3-hour session per week, starting Monday 2026-10-19. Gantt chart: [`../diagrams/gantt.puml`](../diagrams/gantt.puml).
+Option A: one 3-hour session per week, starting Monday 2026-10-19. From 2026-10-25 the sessions are fixed on Sundays 13:00–16:00 (calendar series until 2027-01-17). Gantt chart: [`../diagrams/gantt.puml`](../diagrams/gantt.puml).
+
+M1 finished early (2026-10-16). Content is collected in Notion (`P008_portfolio`: `P008_Showcase_Projekte`, `P008_Zertifikate`).
 
 | Week of | Milestone | Done when |
 | :--- | :--- | :--- |
@@ -30,8 +32,22 @@ Option A: one 3-hour session per week, starting Monday 2026-10-19. Gantt chart: 
 - [x] Infomaniak mailbox `rahul@gurung.ch` created, SMTP send tested
 - [ ] Infomaniak: two-factor authentication and auto-renew on; check the domain term (shows expiry 2027-10-15, 2 years were ordered)
 
+## M8 head start (done 2026-10-23)
+
+Server details: [ADR 0004](../adr/0004-hosting-infomaniak.md#server-ordered-2026-10-23).
+
+- [x] VPS ordered (Infomaniak VPS Lite, 2 vCPU / 4 GB)
+- [x] Key-only SSH, ufw, automatic security updates, timezone
+- [x] Docker Engine + Compose, log rotation
+- [x] Infomaniak firewall: TCP 80 and 443 open
+- [x] DNS A + AAAA for `www.portfolio.rahul.gurung.ch` and `portfolio.rahul.gurung.ch`
+- [x] HTTPS placeholder page live (Caddy), redirect checked
+- [ ] Non-root deploy user and deploy key for GitHub Actions
+- [ ] Stop `~/placeholder` before starting the `deploy/` stack
+- [ ] `deploy/.env` on the server, nightly backup, off-site copy, restore test
+- [ ] Uptime monitor
+
 ## Open items
 
 - Verify that SBB backend teams use Spring Boot (job ads).
 - Verify HERMES phase and document names at hermes.admin.ch.
-- Confirm live Infomaniak VPS Lite price before ordering (M7/M8).
