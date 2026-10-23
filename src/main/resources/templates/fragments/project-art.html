@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!--/* Decorative illustration per project, shown while a project has no screenshot (16:9, colours from site.css,
+	so they follow dark mode). Hidden from screen readers: the card or page heading already names the project.
+	A new project without a case here gets the generic browser illustration. */-->
+<th:block th:fragment="art(slug)" th:switch="${slug}">
+
+	<svg th:case="'notion-workspace-prototype'" class="art" viewBox="0 0 320 180" aria-hidden="true"
+		focusable="false" preserveAspectRatio="xMidYMid slice">
+		<rect class="art-bg" width="320" height="180"/>
+		<rect class="art-surface art-edge" x="20" y="16" width="280" height="148" rx="8"/>
+		<circle class="art-muted" cx="32" cy="28" r="3"/>
+		<circle class="art-sun" cx="42" cy="28" r="3"/>
+		<circle class="art-red" cx="52" cy="28" r="3"/>
+		<!-- sidebar -->
+		<rect class="art-term" x="28" y="40" width="54" height="116" rx="5"/>
+		<rect class="art-sun" x="36" y="50" width="10" height="5" rx="2"/>
+		<rect class="art-soft" x="50" y="50" width="24" height="5" rx="2"/>
+		<rect class="art-soft" x="36" y="64" width="34" height="4" rx="2"/>
+		<rect class="art-soft" x="36" y="74" width="28" height="4" rx="2"/>
+		<rect class="art-soft" x="36" y="84" width="38" height="4" rx="2"/>
+		<rect class="art-soft" x="36" y="100" width="24" height="4" rx="2"/>
+		<rect class="art-soft" x="36" y="110" width="32" height="4" rx="2"/>
+		<!-- title and progress -->
+		<rect class="art-ink" x="92" y="40" width="96" height="7" rx="3"/>
+		<rect class="art-line" x="92" y="53" width="196" height="5" rx="2.5"/>
+		<rect class="art-red" x="92" y="53" width="122" height="5" rx="2.5"/>
+		<!-- columns: to do, in progress, done -->
+		<rect class="art-muted" x="92" y="68" width="34" height="7" rx="3.5"/>
+		<rect class="art-sun" x="160" y="68" width="40" height="7" rx="3.5"/>
+		<rect class="art-red" x="228" y="68" width="28" height="7" rx="3.5"/>
+		<g>
+			<rect class="art-surface art-edge" x="92" y="82" width="60" height="30" rx="4"/>
+			<rect class="art-ink" x="99" y="90" width="38" height="3.5" rx="1.5"/>
+			<rect class="art-muted" x="99" y="98" width="26" height="3.5" rx="1.5"/>
+			<circle class="art-red" cx="144" cy="91" r="2.5"/>
+			<rect class="art-surface art-edge" x="92" y="118" width="60" height="30" rx="4"/>
+			<rect class="art-ink" x="99" y="126" width="32" height="3.5" rx="1.5"/>
+			<rect class="art-muted" x="99" y="134" width="40" height="3.5" rx="1.5"/>
+			<circle class="art-sun" cx="144" cy="127" r="2.5"/>
+		</g>
+		<g>
+			<rect class="art-surface art-edge" x="160" y="82" width="60" height="30" rx="4"/>
+			<rect class="art-ink" x="167" y="90" width="42" height="3.5" rx="1.5"/>
+			<rect class="art-muted" x="167" y="98" width="22" height="3.5" rx="1.5"/>
+			<circle class="art-sun" cx="212" cy="91" r="2.5"/>
+			<rect class="art-surface art-edge" x="160" y="118" width="60" height="30" rx="4"/>
+			<rect class="art-ink" x="167" y="126" width="30" height="3.5" rx="1.5"/>
+			<rect class="art-muted" x="167" y="134" width="36" height="3.5" rx="1.5"/>
+			<circle class="art-muted" cx="212" cy="127" r="2.5"/>
+		</g>
+		<g>
+			<rect class="art-surface art-edge" x="228" y="82" width="60" height="30" rx="4"/>
+			<rect class="art-ink" x="235" y="90" width="34" height="3.5" rx="1.5"/>
+			<rect class="art-muted" x="235" y="98" width="28" height="3.5" rx="1.5"/>
+			<path class="art-check" d="M274 92 l3 3 l6 -7"/>
+		</g>
+	</svg>
+
+	<svg th:case="'n8n-workflow'" class="art" viewBox="0 0 320 180" aria-hidden="true" focusable="false"
+		preserveAspectRatio="xMidYMid slice">
+		<defs>
+			<pattern id="art-dots-n8n" width="12" height="12" patternUnits="userSpaceOnUse">
+				<circle class="art-line" cx="2" cy="2" r="1"/>
+			</pattern>
+		</defs>
+		<rect class="art-bg" width="320" height="180"/>
+		<rect width="320" height="180" fill="url(#art-dots-n8n)"/>
+		<!-- header: workflow name and active switch -->
+		<rect class="art-ink" x="24" y="22" width="74" height="7" rx="3"/>
+		<rect class="art-muted" x="24" y="34" width="46" height="4" rx="2"/>
+		<rect class="art-red" x="262" y="22" width="34" height="15" rx="7.5"/>
+		<circle class="art-surface" cx="288" cy="29.5" r="5"/>
+		<!-- connectors -->
+		<path class="art-wire" d="M70 92 C84 92 84 92 98 92"/>
+		<path class="art-wire" d="M144 92 C158 92 158 92 172 92"/>
+		<path class="art-wire art-wire-active" d="M218 92 C232 92 232 92 246 92"/>
+		<!-- nodes: trigger, HTTP request, transform, database -->
+		<rect class="art-surface art-edge-strong" x="24" y="69" width="46" height="46" rx="18"/>
+		<path class="art-sun art-outline" d="M50 77 L39 94 L46 94 L43 107 L55 89 L48 89 Z"/>
+		<rect class="art-surface art-edge-strong" x="98" y="69" width="46" height="46" rx="9"/>
+		<circle class="art-outline art-none" cx="121" cy="92" r="11"/>
+		<ellipse class="art-outline art-none" cx="121" cy="92" rx="4.5" ry="11"/>
+		<path class="art-outline art-none" d="M110 92 H132"/>
+		<rect class="art-surface art-edge-strong" x="172" y="69" width="46" height="46" rx="9"/>
+		<path class="art-outline art-none" d="M189 81 C184 81 185 87 185 89 C185 91 183 92 182 92 C183 92 185 93 185 95 C185 97 184 103 189 103"/>
+		<path class="art-outline art-none" d="M201 81 C206 81 205 87 205 89 C205 91 207 92 208 92 C207 92 205 93 205 95 C205 97 206 103 201 103"/>
+		<circle class="art-red" cx="195" cy="92" r="2.5"/>
+		<rect class="art-surface art-edge-strong" x="246" y="69" width="46" height="46" rx="9"/>
+		<ellipse class="art-outline art-surface" cx="269" cy="83" rx="10" ry="4"/>
+		<path class="art-outline art-none" d="M259 83 V101 C259 103 263 105 269 105 C275 105 279 103 279 101 V83"/>
+		<path class="art-outline art-none" d="M259 92 C259 94 263 96 269 96 C275 96 279 94 279 92"/>
+		<circle class="art-sun art-outline" cx="290" cy="71" r="7"/>
+		<path class="art-check" d="M286.5 71 l2.5 2.5 l4.5 -5"/>
+		<!-- node labels -->
+		<rect class="art-ink" x="31" y="124" width="32" height="4" rx="2"/>
+		<rect class="art-ink" x="104" y="124" width="34" height="4" rx="2"/>
+		<rect class="art-ink" x="180" y="124" width="30" height="4" rx="2"/>
+		<rect class="art-ink" x="253" y="124" width="32" height="4" rx="2"/>
+		<rect class="art-muted" x="37" y="132" width="20" height="3" rx="1.5"/>
+		<rect class="art-muted" x="110" y="132" width="22" height="3" rx="1.5"/>
+		<rect class="art-muted" x="185" y="132" width="20" height="3" rx="1.5"/>
+		<rect class="art-muted" x="259" y="132" width="20" height="3" rx="1.5"/>
+	</svg>
+
+	<svg th:case="'lerndoku-generator'" class="art" viewBox="0 0 320 180" aria-hidden="true" focusable="false"
+		preserveAspectRatio="xMidYMid slice">
+		<rect class="art-bg" width="320" height="180"/>
+		<!-- terminal with the menu -->
+		<rect class="art-term" x="18" y="26" width="156" height="128" rx="8"/>
+		<circle class="art-red" cx="30" cy="38" r="3"/>
+		<circle class="art-sun" cx="40" cy="38" r="3"/>
+		<circle class="art-muted" cx="50" cy="38" r="3"/>
+		<rect class="art-blush" x="30" y="54" width="102" height="4" rx="2"/>
+		<rect class="art-sun" x="34" y="66" width="5" height="4" rx="1"/>
+		<rect class="art-soft" x="44" y="66" width="66" height="4" rx="2"/>
+		<rect class="art-sun" x="34" y="76" width="5" height="4" rx="1"/>
+		<rect class="art-soft" x="44" y="76" width="96" height="4" rx="2"/>
+		<rect class="art-sun" x="34" y="86" width="5" height="4" rx="1"/>
+		<rect class="art-soft" x="44" y="86" width="84" height="4" rx="2"/>
+		<rect class="art-sun" x="34" y="96" width="5" height="4" rx="1"/>
+		<rect class="art-soft" x="44" y="96" width="58" height="4" rx="2"/>
+		<rect class="art-sun" x="34" y="106" width="5" height="4" rx="1"/>
+		<rect class="art-soft" x="44" y="106" width="64" height="4" rx="2"/>
+		<rect class="art-blush" x="30" y="124" width="74" height="4" rx="2"/>
+		<rect class="art-red" x="108" y="121" width="6" height="10" rx="1"/>
+		<!-- arrow -->
+		<path class="art-arrow" d="M180 90 H198 M192 84 L198 90 L192 96"/>
+		<!-- generated document -->
+		<path class="art-surface art-edge" d="M206 18 H284 L302 36 V156 C302 159 300 162 297 162 H211 C208 162 206 159 206 156 Z"/>
+		<path class="art-line art-edge" d="M284 18 V36 H302"/>
+		<rect class="art-red" x="218" y="32" width="54" height="7" rx="3"/>
+		<rect class="art-muted" x="218" y="45" width="38" height="4" rx="2"/>
+		<rect class="art-box" x="218" y="60" width="9" height="9" rx="2"/>
+		<path class="art-check" d="M220 64.5 l2 2 l4 -4.5"/>
+		<rect class="art-ink" x="232" y="62" width="52" height="4" rx="2"/>
+		<rect class="art-box" x="218" y="76" width="9" height="9" rx="2"/>
+		<path class="art-check" d="M220 80.5 l2 2 l4 -4.5"/>
+		<rect class="art-ink" x="232" y="78" width="44" height="4" rx="2"/>
+		<rect class="art-box" x="218" y="92" width="9" height="9" rx="2"/>
+		<rect class="art-ink" x="232" y="94" width="48" height="4" rx="2"/>
+		<rect class="art-muted" x="218" y="112" width="70" height="3.5" rx="1.5"/>
+		<rect class="art-muted" x="218" y="120" width="62" height="3.5" rx="1.5"/>
+		<rect class="art-muted" x="218" y="128" width="66" height="3.5" rx="1.5"/>
+		<rect class="art-sun" x="218" y="144" width="28" height="5" rx="2"/>
+	</svg>
+
+	<svg th:case="*" class="art" viewBox="0 0 320 180" aria-hidden="true" focusable="false"
+		preserveAspectRatio="xMidYMid slice">
+		<rect class="art-bg" width="320" height="180"/>
+		<rect class="art-surface art-edge" x="40" y="24" width="240" height="132" rx="8"/>
+		<circle class="art-red" cx="54" cy="37" r="3"/>
+		<circle class="art-sun" cx="64" cy="37" r="3"/>
+		<circle class="art-muted" cx="74" cy="37" r="3"/>
+		<rect class="art-line" x="90" y="33" width="150" height="8" rx="4"/>
+		<rect class="art-ink" x="56" y="58" width="96" height="8" rx="3"/>
+		<rect class="art-muted" x="56" y="74" width="120" height="4" rx="2"/>
+		<rect class="art-muted" x="56" y="84" width="100" height="4" rx="2"/>
+		<rect class="art-red" x="56" y="100" width="44" height="12" rx="4"/>
+		<rect class="art-tint" x="192" y="58" width="72" height="80" rx="6"/>
+		<rect class="art-ink" x="56" y="124" width="70" height="4" rx="2"/>
+		<rect class="art-muted" x="56" y="134" width="90" height="4" rx="2"/>
+	</svg>
+
+</th:block>
+</body>
+</html>

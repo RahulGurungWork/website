@@ -43,6 +43,52 @@
 						projects</a></p>
 			</div>
 		</section>
+
+		<section class="section skills-band" aria-labelledby="skills-title">
+			<div class="wrap">
+				<div class="section-head">
+					<span class="eyebrow" th:text="#{skills.eyebrow}">Skills</span>
+					<h2 id="skills-title" th:text="#{skills.heading}">What I work with</h2>
+					<p th:text="#{skills.lead}">An honest picture of where I stand.</p>
+				</div>
+				<div class="skill-groups">
+					<div class="skill-group" th:each="group : ${skillGroups}">
+						<h3 th:text="#{__${'skills.group.' + group.key}__}">Languages</h3>
+						<ul>
+							<li th:each="skill : ${group.skills}">
+								<span th:text="${skill.name}">Java</span>
+								<span class="level" th:classappend="|level-${#strings.toLowerCase(skill.level)}|"
+									th:text="#{__${'skills.level.' + skill.level}__}">Comfortable</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section" aria-labelledby="about-title">
+			<div class="wrap about-grid">
+				<div class="section-head">
+					<span class="eyebrow" th:text="#{about.eyebrow}">About</span>
+					<h2 id="about-title" th:text="#{about.heading}">About me</h2>
+				</div>
+				<div class="prose">
+					<p><span th:text="#{about.apprenticeship}">Apprenticeship.</span>
+						<span th:text="#{about.dates}">Dates.</span></p>
+					<p th:text="#{about.motivation}">Motivation.</p>
+					<p th:text="#{about.vorlehre}">Vorlehre.</p>
+					<p th:text="#{about.beyond}">Beyond IT.</p>
+					<h3 th:text="#{about.languages}">Languages</h3>
+					<ul class="plain-list">
+						<li th:text="#{about.lang.de}">German</li>
+						<li th:text="#{about.lang.en}">English</li>
+						<li th:text="#{about.lang.ne}">Nepali</li>
+					</ul>
+					<p><a class="btn btn-outline-ink" th:href="@{/{l}/cv.pdf(l=${lang})}" th:text="#{cv.download}">Download
+							CV (PDF)</a></p>
+				</div>
+			</div>
+		</section>
 	</main>
 </body>
 </html>

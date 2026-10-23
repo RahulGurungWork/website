@@ -7,26 +7,36 @@
 	<main id="main">
 		<article>
 			<header class="hero">
-				<div class="wrap project-head">
-					<a class="back" th:href="@{/{l}/projects(l=${lang})}"><span aria-hidden="true">← </span><span
-							th:text="#{projects.back}">All projects</span></a>
-					<p class="eyebrow">
-						<span th:text="#{__${'projects.status.' + project.status}__}">Current</span><th:block
-							th:if="${project.startedOn}"> · <time th:datetime="${#temporals.format(project.startedOn, 'yyyy-MM')}"
-								th:text="${#temporals.format(project.startedOn, 'MM.yyyy')}">01.2026</time><th:block
-								th:if="${project.endedOn}">–<time th:datetime="${#temporals.format(project.endedOn, 'yyyy-MM')}"
-									th:text="${#temporals.format(project.endedOn, 'MM.yyyy')}">06.2026</time></th:block></th:block>
-					</p>
-					<h1 th:text="${project.title}">Project title</h1>
-					<p class="lead-text" th:text="${project.summary}">Summary</p>
-					<ul class="chips" th:if="${!project.technologies.isEmpty()}" th:aria-label="#{projects.technologies}">
-						<li th:each="technology : ${project.technologies}" th:text="${technology}">Java</li>
-					</ul>
-					<div class="actions" th:if="${project.repoUrl != null or project.demoUrl != null}">
-						<a th:if="${project.demoUrl}" class="btn btn-brand" th:href="${project.demoUrl}" rel="noopener"
-							th:text="#{projects.demo}">Live demo</a>
-						<a th:if="${project.repoUrl}" class="btn btn-outline-ink" th:href="${project.repoUrl}"
-							rel="noopener" th:text="#{projects.repo}">Source code</a>
+				<div class="wrap project-hero">
+					<div class="project-head">
+						<a class="back" th:href="@{/{l}/projects(l=${lang})}"><span aria-hidden="true">← </span><span
+								th:text="#{projects.back}">All projects</span></a>
+						<p class="eyebrow">
+							<span th:text="#{__${'projects.status.' + project.status}__}">Current</span><th:block
+								th:if="${project.startedOn}"> · <time th:datetime="${project.startedOn.year}"
+									th:text="${project.startedOn.year}">2025</time><th:block
+									th:if="${project.endedOn != null and project.endedOn.year != project.startedOn.year}">–<time
+										th:datetime="${project.endedOn.year}" th:text="${project.endedOn.year}">2026</time></th:block></th:block>
+						</p>
+						<h1 th:text="${project.title}">Project title</h1>
+						<p class="lead-text" th:text="${project.summary}">Summary</p>
+						<ul class="chips" th:if="${!project.technologies.isEmpty()}" th:aria-label="#{projects.technologies}">
+							<li th:each="technology : ${project.technologies}" th:text="${technology}">Java</li>
+						</ul>
+						<div class="actions" th:if="${project.repoUrl != null or project.demoUrl != null}">
+							<a th:if="${project.demoUrl}" class="btn btn-brand" th:href="${project.demoUrl}" rel="noopener"
+								th:text="#{projects.demo}">Live demo</a>
+							<a th:if="${project.repoUrl}" class="btn btn-outline-ink" th:href="${project.repoUrl}"
+								rel="noopener" th:text="#{projects.repo}">Source code</a>
+						</div>
+					</div>
+					<!--/* First screenshot, or the project's illustration while it has none.
+						th:replace runs before th:if on the same element, hence the wrapper. */-->
+					<div class="project-visual">
+						<img th:if="${!project.images.isEmpty()}"
+							th:src="@{/img/projects/{p}(p=${project.images[0].path})}" th:alt="${project.images[0].alt}">
+						<th:block th:if="${project.images.isEmpty()}"><th:block
+								th:replace="~{fragments/project-art :: art(${project.slug})}"></th:block></th:block>
 					</div>
 				</div>
 			</header>

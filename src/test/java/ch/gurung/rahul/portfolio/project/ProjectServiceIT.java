@@ -28,16 +28,16 @@ class ProjectServiceIT {
 	@Test
 	void listsPublishedProjectsInSortOrderAndLanguage() {
 		assertThat(this.service.publishedProjects(Locale.GERMAN)).extracting(ProjectSummary::title)
-			.containsExactly("Notion-Workspace-Prototyp", "n8n-Workflow", "Lerndokumentations-Generator");
+			.containsExactly("Notion-Projektmanagement-Board", "n8n-Workflow", "Lerndokumentations-Generator");
 		assertThat(this.service.publishedProjects(Locale.ENGLISH)).extracting(ProjectSummary::title)
-			.containsExactly("Notion workspace prototype", "n8n workflow", "Learning documentation generator");
+			.containsExactly("Notion project management board", "n8n workflow", "Learning documentation generator");
 	}
 
 	@Test
 	void sortsTechnologiesIgnoringCase() {
 		ProjectDetail project = this.service.publishedProject("n8n-workflow", Locale.ENGLISH).orElseThrow();
 
-		assertThat(project.technologies()).containsExactly("n8n", "REST API");
+		assertThat(project.technologies()).containsExactly("Abacus", "Excel", "n8n");
 	}
 
 	@Test

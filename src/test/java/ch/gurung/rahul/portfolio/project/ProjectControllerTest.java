@@ -35,7 +35,7 @@ class ProjectControllerTest {
 				List.of("n8n", "REST API"), null)));
 
 		assertThat(html("/de/projects")).contains("<html lang=\"de\"", "<h1>Projekte</h1>", "<h2>n8n-Workflow</h2>",
-				"<li>REST API</li>", "Screenshot folgt", "href=\"/de/projects/n8n-workflow\"",
+				"<li>REST API</li>", "<svg class=\"art\" viewBox=\"0 0 320 180\" aria-hidden=\"true\"", "url(#art-dots-n8n)", "href=\"/de/projects/n8n-workflow\"",
 				"<span class=\"visually-hidden\"> zum Projekt n8n-Workflow</span>",
 				"<a href=\"/de/projects\" aria-current=\"page\">Projekte</a>");
 	}
@@ -56,13 +56,35 @@ class ProjectControllerTest {
 						List.of(new ProjectDetail.Image("n8n-workflow/flow.webp", "The workflow canvas")))));
 
 		assertThat(html("/en/projects/n8n-workflow")).contains("<title>n8n workflow – Rahul Gurung</title>",
-				"<h1>n8n workflow</h1>", "Past project", "<time datetime=\"2025-03\">03.2025</time>",
-				"<time datetime=\"2025-09\">09.2025</time>", "<p>First paragraph.</p>", "<p>Second paragraph.</p>",
+				"<h1>n8n workflow</h1>", "Past project", "<time datetime=\"2025\">2025</time>",
+				"<p>First paragraph.</p>", "<p>Second paragraph.</p>",
 				"href=\"https://github.com/RahulGurungWork/n8n\"",
 				"<img src=\"/img/projects/n8n-workflow/flow.webp\" alt=\"The workflow canvas\"",
 				"<a href=\"/en/projects\" aria-current=\"true\">Projects</a>",
 				"<a href=\"/de/projects/n8n-workflow\" lang=\"de\"")
-			.doesNotContain("Live demo");
+			.doesNotContain("Live demo", "<svg class=\"art\"");
+	}
+
+	@Test
+	void detailWithoutScreenshotsShowsIllustrationInsteadOfGallery() throws Exception {
+		given(this.projectService.publishedProject("lerndoku-generator", Locale.of("de"))).willReturn(Optional.of(
+				new ProjectDetail("lerndoku-generator", "Lerndokumentations-Generator", "Ein Werkzeug.", "Text.",
+						ProjectStatus.CURRENT, null, null, null, null, List.of("Java"), List.of())));
+
+		assertThat(html("/de/projects/lerndoku-generator")).contains("<div class=\"project-visual\">",
+				"<svg class=\"art\" viewBox=\"0 0 320 180\" aria-hidden=\"true\" focusable=\"false\"",
+				"class=\"art-term\"")
+			.doesNotContain("class=\"gallery\"", "<img");
+	}
+
+	@Test
+	void unknownSlugGetsGenericIllustration() throws Exception {
+		given(this.projectService.publishedProject("new-project", Locale.of("en"))).willReturn(Optional.of(
+				new ProjectDetail("new-project", "New project", "Summary.", "Text.", ProjectStatus.CURRENT, null, null,
+						null, null, List.of(), List.of())));
+
+		assertThat(html("/en/projects/new-project")).contains("<svg class=\"art\"", "class=\"art-tint\"")
+			.doesNotContain("art-dots-n8n", "art-term");
 	}
 
 	@Test
