@@ -21,12 +21,15 @@ Added beyond the plan on 2026-10-18 and live since 2026-10-23: Skills and About 
 
 ## Remaining
 
-- [ ] M8 follow-ups: see [`07-go-live.md`](07-go-live.md) (mail password and test message first)
-- [ ] Manual accessibility checks in [`06-test-results.md`](06-test-results.md) (keyboard, NVDA, 200% zoom)
+- [ ] M8 follow-ups: see [`07-go-live.md`](07-go-live.md) (live contact form test first)
+- [ ] Manual accessibility checks in [`06-test-results.md`](06-test-results.md) (keyboard, NVDA, 200% zoom); not
+  started as of 2026-10-23
 - [ ] Impressum and privacy notice checked against official guidance; date updated
-- [ ] Friends proofread EN and DE
-- [ ] Credential links for certifications where public ones exist
+- [ ] Proofreading of EN and DE by friends; nobody asked yet as of 2026-10-23
 - [ ] Real screenshots to replace the illustrations (optional)
+
+Dropped 2026-10-23: credential links for certifications, since none of the certificates has a public verification
+URL (Codecademy codes and the Cambridge number are not links).
 
 ## M1 checklist (native Windows)
 
@@ -41,7 +44,7 @@ Added beyond the plan on 2026-10-18 and live since 2026-10-23: Skills and About 
 - [x] Create the GitHub repository and push
 - [x] `mvnw verify` green locally and in CI
 - [x] Infomaniak mailbox `rahul@gurung.ch` created, SMTP send tested
-- [ ] Infomaniak: two-factor authentication and auto-renew on; domain term (moved to [`07-go-live.md`](07-go-live.md), block 1)
+- [x] Infomaniak: two-factor authentication on; auto-renew and domain term moved to [`07-go-live.md`](07-go-live.md), block 1
 
 ## Repositories
 
@@ -50,5 +53,7 @@ Added beyond the plan on 2026-10-18 and live since 2026-10-23: Skills and About 
 
 ## Open items
 
-- Verify that SBB backend teams use Spring Boot (job ads).
-- Verify HERMES phase and document names at hermes.admin.ch.
+Both still unverified as of 2026-10-23:
+
+- Verify that SBB backend teams use Spring Boot (job ads). The stack choice ([ADR 0001](../adr/0001-spring-boot.md)) rests on it.
+- Verify HERMES phase and document names at hermes.admin.ch (written from memory).

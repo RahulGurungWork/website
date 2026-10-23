@@ -12,8 +12,9 @@ is valid.
 
 ## 1. Before ordering
 
-- [ ] Infomaniak account: two-factor authentication on; domain auto-renew on (open item from M1)
-- [ ] Domain term: the Manager shows expiry 2027-10-15 although 2 years were ordered; check the invoice
+- [x] Infomaniak account: two-factor authentication on (confirmed by Rahul 2026-10-23)
+- [ ] Domain `gurung.ch`: turn auto-renew on (probably off on 2026-10-23); confirm on the invoice whether 1 or 2
+  years were paid (the Manager shows expiry 2027-10-15)
 - [x] Live VPS Lite price checked 2026-10-23: CHF 7.20/month excl. VAT, CHF 93.40/year incl. VAT; with the domain
   about CHF 8.40/month (NFR4 ≤ 15)
 
@@ -39,8 +40,7 @@ is valid.
 
 - [x] Code in `~/portfolio` (from `git archive`), stack runs from `~/portfolio/deploy`
 - [x] `~/portfolio/deploy/.env`, `chmod 600`, generated `POSTGRES_PASSWORD` = `DB_PASSWORD`, `APP_IMAGE=portfolio:local`
-- [ ] `MAIL_PASSWORD`: a device password for `rahul@gurung.ch` generated in Infomaniak Mail; then
-  `docker compose up -d app` in `~/portfolio/deploy`
+- [x] `MAIL_PASSWORD` set by Rahul on 2026-10-23 (device password for `rahul@gurung.ch`); app restarted and sees it
 - [ ] Registry access for CD: GitHub token with only `read:packages`, then `docker login ghcr.io -u RahulGurungWork`
 
 ## 5. GitHub
@@ -56,7 +56,9 @@ is valid.
 - [x] Checked from outside: every page 200 in both languages, unknown page 404, `/actuator` 404, `/` → `/en`,
   `portfolio.` → `www.`, HTTP → HTTPS, security headers, both CV PDFs
 - [ ] Actions → Deploy → Run workflow on `main` (needs blocks 4 and 5); it also runs `deploy/smoke-test.sh`
-- [ ] Send yourself a message through the live contact form; it should arrive at `rahul@gurung.ch`
+- [ ] Send yourself a message through the **live** contact form; it should arrive at `rahul@gurung.ch`. The test on
+  2026-10-23 went to the local copy (Mailpit), not the live site: the live database had no messages. Test from a
+  network where the address resolves (not the gibb network)
 - [ ] Open the site on a phone, in both languages
 
 Redeploy by hand until CD works: on the PC `git archive --format=tar.gz -o portfolio.tar.gz HEAD`, `scp` it to the
@@ -67,9 +69,12 @@ server, unpack into a fresh `~/portfolio` keeping `deploy/.env`, then `docker bu
 
 - [ ] Caddy: enable HSTS (`Strict-Transport-Security "max-age=31536000"`); deploy again
 - [ ] Deploy workflow: switch the trigger to `push` on `main`
-- [ ] Backups: cron for `deploy/backup.sh` (see the script header); copy the backup folder off the server
+- [ ] Backups: cron for `deploy/backup.sh` (see the script header)
+- [ ] Off-site copy: to Rahul's PC (decided 2026-10-23), pulled from the server with `scp`/`rsync`; the PC must
+  run it regularly (Windows scheduled task) and keep it out of Git
 - [ ] Restore test: `pg_restore` the newest dump into a scratch database and check the row counts
-- [ ] Uptime monitor that emails `rahul@gurung.ch`
+- [ ] Uptime monitor: a free external service that emails `rahul@gurung.ch` (approved 2026-10-23); Rahul creates the
+  account and adds `https://www.portfolio.rahul.gurung.ch/en`
 - [ ] Privacy notice: compare with the live setup (no access logs in Caddy, Infomaniak only); update the date if
   anything changed
 - [ ] Delete the old placeholder in `~/placeholder` on the server
