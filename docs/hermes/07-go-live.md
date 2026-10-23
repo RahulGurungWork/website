@@ -56,9 +56,9 @@ is valid.
 - [x] Checked from outside: every page 200 in both languages, unknown page 404, `/actuator` 404, `/` → `/en`,
   `portfolio.` → `www.`, HTTP → HTTPS, security headers, both CV PDFs
 - [ ] Actions → Deploy → Run workflow on `main` (needs blocks 4 and 5); it also runs `deploy/smoke-test.sh`
-- [ ] Send yourself a message through the **live** contact form; it should arrive at `rahul@gurung.ch`. The test on
-  2026-10-23 went to the local copy (Mailpit), not the live site: the live database had no messages. Test from a
-  network where the address resolves (not the gibb network)
+- [x] Live contact form: test message sent 2026-10-23 13:57 (name "Test"), stored as message 1 with `mail_sent = true`,
+  no mail errors in the app log, so Infomaniak SMTP accepted it. Rahul to confirm it arrived in the inbox (an
+  earlier test that day had gone to the local Mailpit by mistake)
 - [ ] Open the site on a phone, in both languages
 
 Redeploy by hand until CD works: on the PC `git archive --format=tar.gz -o portfolio.tar.gz HEAD`, `scp` it to the
