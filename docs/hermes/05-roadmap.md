@@ -14,7 +14,7 @@ Status 2026-10-23: M1–M7 are done, well ahead of plan (M2–M7 merged on 2026-
 | 2026-11-23 | M5 Certifications and legal pages | Pages render in both languages | Done 2026-10-17 (PR #2); privacy notice dated 17 October 2026, legal texts still to review against official guidance |
 | 2026-11-30, 12-07 | M6 Contact form | Test mail arrives (Mailpit locally); failure paths tested | Done 2026-10-17 (PR #3): honeypot, rate limit 5/10 min, mail via SMTP, one-year retention |
 | 2026-12-14, 12-21 | M7 Quality pass | Automated checks green; manual checklist done | Automated part done 2026-10-17 (PR #4): Playwright, axe-core 0 violations, Lighthouse 100; manual checklist open |
-| 2026-12-28, 2027-01-04 | M8 Production | Live over HTTPS; smoke test passes | Started 2026-10-23: VPS, Docker, DNS, HTTPS placeholder live; app deploy open |
+| 2026-12-28, 2027-01-04 | M8 Production | Live over HTTPS; smoke test passes | App live since 2026-10-23 (image built on the server); mail password, CD, backups and monitoring open |
 | 2027-01-11 | Buffer | Ends 2027-01-17 | |
 
 ## Remaining before go-live
@@ -51,10 +51,21 @@ Server details: [ADR 0004](../adr/0004-hosting-infomaniak.md#server-ordered-2026
 - [x] Infomaniak firewall: TCP 80 and 443 open
 - [x] DNS A + AAAA for `www.portfolio.rahul.gurung.ch` and `portfolio.rahul.gurung.ch`
 - [x] HTTPS placeholder page live (Caddy), redirect checked
-- [ ] Non-root deploy user and deploy key for GitHub Actions
-- [ ] Stop `~/placeholder` before starting the `deploy/` stack
-- [ ] `deploy/.env` on the server, nightly backup, off-site copy, restore test
+- [x] App deployed 2026-10-23 from commit 945a799: code copied to `~/portfolio`, image `portfolio:local` built on the server, `deploy/` stack (Caddy, app, PostgreSQL) running; placeholder stopped
+- [x] `deploy/.env` on the server (chmod 600, generated DB password)
+- [x] Smoke test from outside: all pages 200, unknown page 404, `/actuator` 404, both redirects, security headers, 26 certificates
+- [ ] `MAIL_PASSWORD` in `deploy/.env` (set by Rahul), then `docker compose up -d app`, then a test message
+- [ ] Non-root deploy user and deploy key; switch `deploy.yml` from manual to GHCR images
+- [ ] Nightly backup (`backup.sh` in cron), off-site copy, restore test
 - [ ] Uptime monitor
+- [ ] Enable HSTS in the Caddyfile
+- [ ] Delete `~/placeholder` on the server
+
+Copy for school: the project is also on git.gibb.ch (`m293-inf2025n/rahul_gurung`, branch `p008-portfolio`); `main` there holds the M293 work.
+
+## Redeploy by hand (until CD is set up)
+
+On your PC: `git archive --format=tar.gz -o portfolio.tar.gz HEAD`, copy it with `scp` to the server, then on the server unpack it into `~/portfolio` (keep `deploy/.env`), `docker build -t portfolio:local .` and `cd deploy && docker compose up -d app`.
 
 ## Open items
 

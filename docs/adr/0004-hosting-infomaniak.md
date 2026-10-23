@@ -28,7 +28,7 @@ Spring Boot needs a Java runtime, which rules out PHP shared hosting. Budget is 
 | Updates | `unattended-upgrades` on; timezone Europe/Zurich |
 | Docker | Engine 29.9 + Compose plugin from Docker's apt repo; container logs rotated (3 × 10 MB) |
 | DNS | A + AAAA for `www.portfolio.rahul` and `portfolio.rahul` in the gurung.ch zone |
-| Running now | Caddy placeholder page in `~/placeholder` (HTTPS, redirect `portfolio.` → `www.`), replaced in M8 |
+| Running now | Since 2026-10-23: `~/portfolio/deploy` stack (Caddy, app image `portfolio:local` built on the server, PostgreSQL 18); secrets in `~/portfolio/deploy/.env` (chmod 600). The earlier placeholder in `~/placeholder` is stopped |
 
 ## Consequences
 
