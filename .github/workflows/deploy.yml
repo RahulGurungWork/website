@@ -1,5 +1,6 @@
 # Continuous deployment (draft until M8). Manual trigger only until the VPS exists;
-# switch to `on: push: branches: [main]` once the server and secrets are set up.
+# switch to `on: push: branches: [main]` once the server and secrets are set up
+# (go-live steps: docs/hermes/07-go-live.md).
 #
 # Required repository secrets: DEPLOY_HOST, DEPLOY_USER, DEPLOY_SSH_KEY
 name: Deploy
@@ -11,15 +12,16 @@ permissions:
   contents: read
   packages: write
 
-env:
-  IMAGE: ghcr.io/${{ github.repository_owner }}/portfolio
-
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment: production
     steps:
       - uses: actions/checkout@v5
+
+      # Image names must be lowercase; the owner is "RahulGurungWork"
+      - name: Image name
+        run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/portfolio" >> "$GITHUB_ENV"
 
       - uses: docker/login-action@v3
         with:
@@ -47,4 +49,4 @@ jobs:
             APP_IMAGE=${{ env.IMAGE }}:${{ github.sha }} docker compose up -d
 
       - name: Smoke test
-        run: curl -fsS https://www.portfolio.rahul.gurung.ch/ > /dev/null
+        run: ./deploy/smoke-test.sh https://www.portfolio.rahul.gurung.ch
