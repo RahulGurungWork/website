@@ -2,20 +2,29 @@
 
 Option A: one 3-hour session per week, starting Monday 2026-10-19. From 2026-10-25 the sessions are fixed on Sundays 13:00–16:00 (calendar series until 2027-01-17). Gantt chart: [`../diagrams/gantt.puml`](../diagrams/gantt.puml).
 
-M1 finished early (2026-10-16). Content is collected in Notion (`P008_portfolio`: `P008_Showcase_Projekte`, `P008_Zertifikate`).
+Status 2026-10-23: M1–M7 are done, well ahead of plan (M2–M7 merged on 2026-10-17/18 through PRs #1–#4). What remains is content, the manual checks and M8. Project content is collected in Notion (`P008_portfolio` → `P008_Showcase_Projekte`). Test results: [`06-test-results.md`](06-test-results.md).
 
-| Week of | Milestone | Done when |
-| :--- | :--- | :--- |
-| 2026-10-19 | M1 Environment and skeleton | `mvnw verify` passes locally and in CI; app serves a placeholder page |
-| 2026-10-26 | M2 Data model and seed data | Integration tests pass against real PostgreSQL |
-| 2026-11-02 | M3 Layout, Bootstrap, i18n | Home page browsable in EN and DE with switcher |
-| 2026-11-09 | Content preparation | Texts, screenshots (WebP), alt texts, certification details ready |
-| 2026-11-16 | M4 Project pages | Three projects viewable with real content in EN and DE |
-| 2026-11-23 | M5 Certifications and legal pages | Pages render in both languages |
-| 2026-11-30, 12-07 | M6 Contact form | Test mail arrives (Mailpit locally); failure paths tested |
-| 2026-12-14, 12-21 | M7 Quality pass | Automated checks green; manual checklist done |
-| 2026-12-28, 2027-01-04 | M8 Production | Live over HTTPS; smoke test passes |
-| 2027-01-11 | Buffer | Ends 2027-01-17 |
+| Planned week | Milestone | Done when | Status |
+| :--- | :--- | :--- | :--- |
+| 2026-10-19 | M1 Environment and skeleton | `mvnw verify` passes locally and in CI; app serves a placeholder page | Done 2026-10-16 |
+| 2026-10-26 | M2 Data model and seed data | Integration tests pass against real PostgreSQL | Done 2026-10-17 (PR #1): V1 schema, V2 seed, JPA entities, ITs |
+| 2026-11-02 | M3 Layout, Bootstrap, i18n | Home page browsable in EN and DE with switcher | Done 2026-10-17: /en and /de routing, shared layout, Bootstrap 5.3.8 WebJar, 404/5xx pages |
+| 2026-11-09 | Content preparation | Texts, screenshots (WebP), alt texts, certification details ready | Partly: 26 certifications seeded from the PDFs (V3); project texts are still placeholders and there are no screenshots |
+| 2026-11-16 | M4 Project pages | Three projects viewable with real content in EN and DE | Pages done 2026-10-17; real content still open (new migration needed) |
+| 2026-11-23 | M5 Certifications and legal pages | Pages render in both languages | Done 2026-10-17 (PR #2); privacy notice dated 17 October 2026, legal texts still to review against official guidance |
+| 2026-11-30, 12-07 | M6 Contact form | Test mail arrives (Mailpit locally); failure paths tested | Done 2026-10-17 (PR #3): honeypot, rate limit 5/10 min, mail via SMTP, one-year retention |
+| 2026-12-14, 12-21 | M7 Quality pass | Automated checks green; manual checklist done | Automated part done 2026-10-17 (PR #4): Playwright, axe-core 0 violations, Lighthouse 100; manual checklist open |
+| 2026-12-28, 2027-01-04 | M8 Production | Live over HTTPS; smoke test passes | Started 2026-10-23: VPS, Docker, DNS, HTTPS placeholder live; app deploy open |
+| 2027-01-11 | Buffer | Ends 2027-01-17 | |
+
+## Remaining before go-live
+
+- [ ] Real project texts (EN + DE), screenshots (WebP) and alt texts → new Flyway migration (never edit V2)
+- [ ] Credential links for certifications where public ones exist
+- [ ] Manual accessibility checks in [`06-test-results.md`](06-test-results.md) (keyboard, NVDA, 200% zoom)
+- [ ] Impressum and privacy notice checked against official guidance; date updated
+- [ ] Friends proofread EN and DE
+- [ ] M8: deploy the app (checklist below)
 
 ## M1 checklist (native Windows)
 
