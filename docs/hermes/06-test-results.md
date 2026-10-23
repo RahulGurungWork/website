@@ -13,6 +13,11 @@ HERMES phase: Implementation. Status after M7, 2026-10-17. Test levels and crite
 | Performance | Lighthouse CI, mobile, median of 3 runs on 5 pages | See below |
 | Secrets | gitleaks | Pass |
 
+Re-run 2026-10-23 on Windows (`mvnw verify`) after merging Skills, About, real project content and the CV
+(`355371c`): 66 unit and feature tests and 63 integration tests, including browser flows, axe-core and `CvIT`, all
+pass. The same day the live site was checked from outside (pages, redirects, headers, CV PDFs; see
+[`07-go-live.md`](07-go-live.md)). Lighthouse below was not re-measured after these changes.
+
 Lighthouse (local run of the packaged app, same config as CI):
 
 | Page | Performance | Accessibility | Best practices | SEO | LCP | CLS | TBT |

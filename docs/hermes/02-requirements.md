@@ -15,7 +15,7 @@ HERMES phase: Concept.
 | FR7 | French and Italian content | Should | later |
 | FR8 | Romansh content | Could | later |
 | FR9 | Admin can manage certifications | Should | later |
-| FR10 | Downloadable CV (PDF) | Could | later |
+| FR10 | Downloadable CV (PDF) | Could | 1 (added 2026-10-18) |
 | FR11 | Language switcher with URL per language (/en, /de) | Must | 1 |
 | FR12 | Impressum page | Must | 1 |
 | FR13 | Privacy notice page | Must | 1 |
@@ -33,8 +33,9 @@ HERMES phase: Concept.
 
 ## Showcase projects (Release 1)
 
-1. Notion workspace prototype (project management system)
-2. n8n workflow process
-3. Lerndokumentationsgenerator
+1. Notion project management board (`notion-workspace-prototype`)
+2. n8n workflow: users from an Abacus Excel export into the company application (`n8n-workflow`)
+3. Lerndokumentations-Generator, a Python console program (`lerndoku-generator`)
 
-Content is seeded into PostgreSQL through Flyway migrations; the admin area takes over later.
+Content is seeded into PostgreSQL through Flyway migrations (texts in V4); the admin area takes over later.
+Beyond the original scope, the home page also has Skills and About sections (2026-10-18).

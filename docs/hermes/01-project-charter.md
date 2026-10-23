@@ -8,9 +8,9 @@ HERMES phase: Initialization. Status: approved 2026-10-15.
 | Goal | Present my profile so that recruiters and hiring managers at SBB (backend) invite me to interviews; ETH Zurich (CS research) is the later target |
 | Owner / sponsor / developer | Rahul Gurung (all roles; solo project) |
 | Target audience | Recruiters, hiring managers, research group leads |
-| Release 1 (MVP) | Public site with three showcase projects, certifications page, contact form, Impressum, privacy notice; EN + DE |
+| Release 1 (MVP) | Public site with three showcase projects, certifications page, contact form, Impressum, privacy notice; EN + DE. Added later: Skills and About sections, CV as PDF |
 | Hostname | www.portfolio.rahul.gurung.ch (domain gurung.ch registered at Infomaniak, 2 years) |
-| Hosting | Infomaniak VPS Lite (Swiss), 2 vCPU / 4 GB, ordered 2026-10-23 (CHF 93.40/year incl. VAT); placeholder page live |
+| Hosting | Infomaniak VPS Lite (Swiss), 2 vCPU / 4 GB, ordered 2026-10-23 (CHF 93.40/year incl. VAT); site live there since 2026-10-23 |
 | Contact mailbox | rahul@gurung.ch (free kSuite address; SMTP tested) |
 | Budget | Max 15 CHF/month all-in |
 | Time | 3 h/week (Option A), start Monday 2026-10-19, go-live around 2027-01-10, buffer until 2027-01-17 |
@@ -18,7 +18,7 @@ HERMES phase: Initialization. Status: approved 2026-10-15.
 
 ## Out of scope for Release 1
 
-Admin area, change log, FR/IT/Romansh, graph database ("skills graph" experiment), CV download, blog, comments, visitor accounts, analytics.
+Admin area, change log, FR/IT/Romansh, graph database ("skills graph" experiment), blog, comments, visitor accounts, analytics. (The CV download was moved into Release 1 on 2026-10-18.)
 
 ## HERMES phases (scaled to a solo project)
 

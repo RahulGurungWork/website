@@ -1,10 +1,10 @@
 # P008-Portfolio
 
 Personal portfolio website of Rahul Gurung: Spring Boot 4.1 (Java 25), Thymeleaf, PostgreSQL, Flyway, Bootstrap.
-Planned live address: <https://www.portfolio.rahul.gurung.ch>.
+Live at <https://www.portfolio.rahul.gurung.ch> since 2026-10-23.
 
-Release 1 (MVP): three showcase projects, certifications, contact form, Impressum and privacy notice, in English and German.
-Plan, requirements and decisions: [`docs/`](docs/).
+Release 1: three showcase projects, skills and about sections, certifications, CV as PDF, contact form, Impressum and privacy notice, in English and German.
+Plan, requirements and decisions: [`docs/`](docs/). Status and what is still open: [`docs/hermes/05-roadmap.md`](docs/hermes/05-roadmap.md); deployment: [`docs/hermes/07-go-live.md`](docs/hermes/07-go-live.md).
 
 ## Prerequisites (native Windows)
 
@@ -43,14 +43,16 @@ Integration tests use Testcontainers, so Docker Desktop must be running.
 ## Project layout
 
 ```text
-.github/workflows/   CI (build, test, secret scan) and deploy (manual until M8)
-deploy/              docker-compose.yml (production), docker-compose.dev.yml (local), Caddyfile, backup.sh, .env.example
-docs/hermes/         Charter, requirements, risks, test concept, roadmap
+.github/workflows/   CI (build, test incl. browser tests, secret scan, Lighthouse) and deploy (manual trigger)
+deploy/              docker-compose.yml (production), docker-compose.dev.yml (local), Caddyfile, backup.sh,
+                     smoke-test.sh, .env.example
+docs/hermes/         Charter, requirements, risks, test concept, roadmap, test results, go-live checklist
 docs/adr/            Architecture decision records
+docs/design/         Home page mockup
 docs/diagrams/       PlantUML sources
-e2e/                 Playwright tests (M7)
+e2e/                 Where the browser tests live (README)
 src/main/java/ch/gurung/rahul/portfolio/
-    config/ common/ home/ project/ technology/ certification/ contact/ legal/
+    config/ common/ home/ project/ technology/ certification/ contact/ legal/ cv/
 src/main/resources/
     application*.yml  db/migration/  i18n/  templates/  static/
 ```
