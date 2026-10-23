@@ -57,7 +57,7 @@ is valid.
   `portfolio.` → `www.`, HTTP → HTTPS, security headers, both CV PDFs
 - [ ] Actions → Deploy → Run workflow on `main` (needs blocks 4 and 5); it also runs `deploy/smoke-test.sh`
 - [x] Live contact form: test message sent 2026-10-23 13:57 (name "Test"), stored as message 1 with `mail_sent = true`,
-  no mail errors in the app log, so Infomaniak SMTP accepted it. Rahul to confirm it arrived in the inbox (an
+  no mail errors in the app log, so Infomaniak SMTP accepted it. Arrival in the inbox confirmed by Rahul (an
   earlier test that day had gone to the local Mailpit by mistake)
 - [ ] Open the site on a phone, in both languages
 
