@@ -384,3 +384,9 @@ label { font-weight: 700; }
 @media (prefers-reduced-motion: no-preference) {
   .btn, .nav a { transition: background-color 0.15s, color 0.15s, border-color 0.15s; }
 }
+
+/* Admin area (ADR 0005) */
+.admin-narrow { max-width: 32rem; }
+.admin-narrow form { display: grid; gap: 1.1rem; }
+.admin-logout { margin: 0; }
+.admin-logout .btn { padding: 0.3rem 0.9rem; }

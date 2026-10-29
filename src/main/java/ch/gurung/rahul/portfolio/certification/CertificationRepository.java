@@ -9,3 +9,4 @@ public interface CertificationRepository extends JpaRepository<Certification, Lo
 	List<Certification> findAllByOrderBySortOrderAsc();
 
 }
+

@@ -40,6 +40,13 @@ server:
     enabled: true   # Caddy compresses in production too; this keeps direct runs (CI, Lighthouse) realistic
     mime-types: text/html,text/css,image/svg+xml,text/plain
   forward-headers-strategy: framework   # behind Caddy
+  servlet:
+    session:
+      # Only the admin area creates sessions (ADR 0005)
+      timeout: 30m
+      cookie:
+        http-only: true
+        same-site: strict
   error:
     whitelabel:
       enabled: false
@@ -64,3 +71,8 @@ portfolio:
     max-per-window: 5     # submissions per IP address ...
     window: 10m           # ... within this window
     retention: 365d       # privacy notice: messages deleted after one year
+  admin:
+    # Empty values disable the admin login; generate them with AdminSetup (README, ADR 0005)
+    username: ${ADMIN_USERNAME:}
+    password-hash: ${ADMIN_PASSWORD_HASH:}
+    totp-secret: ${ADMIN_TOTP_SECRET:}

@@ -32,6 +32,19 @@ Open <http://localhost:8080>. Outgoing mail is caught by Mailpit at <http://loca
 
 Alternative without the compose file: run `TestPortfolioApplication` from `src/test` in the IDE; it starts a throwaway PostgreSQL through Testcontainers.
 
+## Admin login
+
+The admin area is at `/en/admin` and `/de/admin` (ADR 0005). It needs a username, a password and a 6-digit code
+from an authenticator app. Create the values once:
+
+```powershell
+.\mvnw.cmd -q compile exec:java "-Dexec.mainClass=ch.gurung.rahul.portfolio.admin.AdminSetup"
+```
+
+It prints `ADMIN_USERNAME`, `ADMIN_PASSWORD_HASH` and `ADMIN_TOTP_SECRET`, plus the key for your authenticator
+app. On the server they go into `deploy/.env`; locally, set them as environment variables before
+`.\mvnw.cmd spring-boot:run`. Without them the admin login is disabled and the public site runs normally.
+
 ## Test
 
 ```powershell

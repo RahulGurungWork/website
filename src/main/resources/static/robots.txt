@@ -1,3 +1,6 @@
-# Everything public may be indexed.
+# Everything public may be indexed; the admin area may not.
 User-agent: *
+Disallow: /en/admin
+Disallow: /de/admin
+Disallow: /admin
 Allow: /

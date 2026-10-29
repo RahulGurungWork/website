@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,6 +42,18 @@ class ContactControllerTest {
 				"action=\"/de/contact\"", "aria-describedby=\"email-hint\"", "name=\"website\"",
 				"<a href=\"/de/contact\" aria-current=\"page\">Kontakt</a>")
 			.doesNotContain("role=\"alert\"");
+	}
+
+	/**
+	 * Privacy notice: no cookies. Spring Security's public filter chain must not create a session or CSRF token.
+	 */
+	@Test
+	void publicFormSetsNoCookie() throws Exception {
+		MvcResult result = this.mvc.perform(get("/en/contact")).andExpect(status().isOk()).andReturn();
+
+		assertThat(result.getResponse().getHeader("Set-Cookie")).isNull();
+		assertThat(result.getRequest().getSession(false)).isNull();
+		assertThat(result.getResponse().getContentAsString()).doesNotContain("_csrf");
 	}
 
 	@Test

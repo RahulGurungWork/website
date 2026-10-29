@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--/* Admin layout (ADR 0005). A page uses it with
+	<html th:replace="~{layout/admin :: layout(~{::title}, ~{::main})}">
+and supplies its own <title> and <main id="main">. The logout button shows when the model has adminUser. */-->
+<html th:fragment="layout(title, content)" lang="en" th:lang="${lang}" th:with="l=${lang} ?: 'en'"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex, nofollow">
+	<title th:replace="${title}">Admin – Rahul Gurung</title>
+	<link rel="icon" th:href="@{/favicon.ico}" sizes="32x32">
+	<link rel="icon" th:href="@{/favicon.svg}" type="image/svg+xml">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/site.css}">
+</head>
+<body>
+	<a class="skip" href="#main" th:text="#{layout.skip}">Skip to main content</a>
+
+	<header class="site-header">
+		<div class="wrap header-row">
+			<a class="logo" th:href="@{/{l}/admin(l=${l})}"><span aria-hidden="true">R<span class="dot">.</span>
+					Gurung</span> <span th:text="#{admin.label}">Admin</span></a>
+			<nav class="nav" th:aria-label="#{admin.nav.label}">
+				<ul class="nav-links">
+					<li><a th:href="@{/{l}(l=${l})}" th:text="#{admin.nav.site}">View website</a></li>
+					<li th:if="${adminUser != null}">
+						<form class="admin-logout" th:action="@{/admin/logout}" method="post">
+							<input type="hidden" name="lang" th:value="${l}">
+							<button class="btn btn-outline-ink" type="submit" th:text="#{admin.logout}">Log out</button>
+						</form>
+					</li>
+				</ul>
+				<ul class="lang" th:aria-label="#{lang.label}">
+					<li th:each="link : ${languageLinks}">
+						<a th:href="@{${link.value}}" th:lang="${link.key}" th:hreflang="${link.key}"
+							th:aria-current="${link.key == l} ? 'true' : null"><span aria-hidden="true"
+								th:text="${#strings.toUpperCase(link.key)}">EN</span><span class="visually-hidden"
+								th:text="#{__${'lang.name.' + link.key}__}">English</span></a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<main id="main" th:replace="${content}">
+		<p>Page content</p>
+	</main>
+</body>
+</html>

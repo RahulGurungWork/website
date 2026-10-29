@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/admin :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="#{admin.login.title}">Admin login – Rahul Gurung</title>
+</head>
+<body>
+	<main id="main" class="section">
+		<div class="wrap admin-narrow">
+			<div class="section-head">
+				<span class="eyebrow" th:text="#{admin.label}">Admin</span>
+				<h1 th:text="#{admin.login.heading}">Log in</h1>
+				<p th:text="#{admin.login.lead}">Username, password and the 6-digit code from your authenticator app.</p>
+			</div>
+
+			<p class="form-status" role="status" th:if="${param.logout != null}" th:text="#{admin.login.loggedOut}">You
+				are logged out.</p>
+			<div class="form-status form-errors" role="alert" th:if="${param.error != null}">
+				<p th:text="#{admin.login.error}">Login failed. Check your username, password and code.</p>
+			</div>
+			<div class="form-status form-errors" role="alert" th:if="${param.locked != null}">
+				<p th:text="#{admin.login.locked}">Too many failed attempts. Try again in 15 minutes.</p>
+			</div>
+			<p class="form-status" role="status" th:unless="${adminConfigured}" th:text="#{admin.login.notConfigured}">
+				The admin login is not set up on this server yet.</p>
+
+			<form th:action="@{/admin/login}" method="post">
+				<input type="hidden" name="lang" th:value="${lang}">
+				<div class="field">
+					<label for="username" th:text="#{admin.login.username}">Username</label>
+					<input id="username" name="username" autocomplete="username" required maxlength="100"
+						autocapitalize="none" spellcheck="false">
+				</div>
+				<div class="field">
+					<label for="password" th:text="#{admin.login.password}">Password</label>
+					<input id="password" name="password" type="password" autocomplete="current-password" required>
+				</div>
+				<div class="field">
+					<label for="code" th:text="#{admin.login.code}">Code from the authenticator app</label>
+					<input id="code" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}"
+						maxlength="7" required aria-describedby="code-hint">
+					<span class="hint" id="code-hint" th:text="#{admin.login.codeHint}">6 digits, changes every 30
+						seconds.</span>
+				</div>
+				<div><button class="btn btn-brand" type="submit" th:text="#{admin.login.submit}">Log in</button></div>
+			</form>
+		</div>
+	</main>
+</body>
+</html>
