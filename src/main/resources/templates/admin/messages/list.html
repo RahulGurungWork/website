@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/admin :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="#{admin.messages.title}">Messages – Admin</title>
+</head>
+<body>
+	<main id="main" class="section">
+		<div class="wrap">
+			<div class="section-head">
+				<span class="eyebrow" th:text="#{admin.label}">Admin</span>
+				<h1 th:text="#{admin.messages.heading}">Messages</h1>
+				<p th:text="#{admin.messages.lead(${unread})}">2 unread. Messages are deleted automatically after one
+					year.</p>
+			</div>
+
+			<p class="form-status" role="status" th:if="${notice}" th:text="#{__${notice}__}">Deleted.</p>
+
+			<p th:if="${messages.isEmpty()}" th:text="#{admin.messages.empty}">No messages yet.</p>
+
+			<div class="admin-table-wrap" th:unless="${messages.isEmpty()}">
+				<table class="table admin-table admin-inbox">
+					<caption class="visually-hidden" th:text="#{admin.messages.heading}">Messages</caption>
+					<thead>
+						<tr>
+							<th scope="col" th:text="#{admin.messages.col.status}">Status</th>
+							<th scope="col" th:text="#{admin.messages.col.from}">From</th>
+							<th scope="col" th:text="#{admin.messages.col.message}">Message</th>
+							<th scope="col" th:text="#{admin.messages.col.received}">Received</th>
+							<th scope="col" th:text="#{admin.messages.col.mail}">Email</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="row : ${messages}" th:classappend="${row.read} ? '' : 'admin-unread'">
+							<td>
+								<span class="admin-badge admin-badge-on" th:unless="${row.read}"
+									th:text="#{admin.message.new}">New</span>
+								<span class="admin-badge" th:if="${row.read}" th:text="#{admin.message.read}">Read</span>
+							</td>
+							<th scope="row"><a th:href="@{/{l}/admin/messages/{id}(l=${lang}, id=${row.id})}"
+									th:text="${row.name}">Anna Muster</a></th>
+							<td th:text="${row.preview}">Hello, I saw your project…</td>
+							<td><time th:datetime="${#temporals.formatISO(row.receivedAt)}"
+									th:text="${#temporals.format(row.receivedAt, 'dd.MM.yyyy HH:mm')}">30.10.2026 14:05</time>
+							</td>
+							<td th:text="${row.mailSent} ? #{admin.message.mailSent} : #{admin.message.mailFailed}">Sent</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

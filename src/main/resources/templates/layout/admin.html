@@ -29,6 +29,9 @@ and supplies its own <title> and <main id="main">. The logout button shows when 
 					<li th:if="${adminUser != null}"><a th:href="@{/{l}/admin/certificates(l=${l})}"
 							th:aria-current="${#strings.startsWith(page, '/admin/certificates')} ? 'page' : null"
 							th:text="#{admin.nav.certificates}">Certificates</a></li>
+					<li th:if="${adminUser != null}"><a th:href="@{/{l}/admin/messages(l=${l})}"
+							th:aria-current="${#strings.startsWith(page, '/admin/messages')} ? 'page' : null"
+							th:text="#{admin.nav.messages}">Messages</a></li>
 					<li><a th:href="@{/{l}(l=${l})}" th:text="#{admin.nav.site}">View website</a></li>
 					<li th:if="${adminUser != null}">
 						<form class="admin-logout" th:action="@{/admin/logout}" method="post">

@@ -17,11 +17,8 @@
 						create, edit, publish and order</a></li>
 				<li><a th:href="@{/{l}/admin/certificates(l=${lang})}"
 						th:text="#{admin.dashboard.certificatesManage}">Certificates: add, edit, order and delete</a></li>
-			</ul>
-			<!--/* Messages arrive in step A4 (docs/hermes/08-admin-panel.md). */-->
-			<h2 th:text="#{admin.dashboard.next}">Coming next</h2>
-			<ul class="plain-list">
-				<li th:text="#{admin.dashboard.messages}">Messages from the contact form</li>
+				<li><a th:href="@{/{l}/admin/messages(l=${lang})}" th:text="#{admin.dashboard.messagesManage}">Messages
+						from the contact form</a></li>
 			</ul>
 		</div>
 	</main>

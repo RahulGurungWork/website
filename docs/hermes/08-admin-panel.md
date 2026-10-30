@@ -30,7 +30,7 @@ site.
 | A1 | Spring Security, login page EN/DE with password + TOTP code, lockout, logout, `AdminSetup` helper, empty dashboard | Login works locally with an authenticator app; all public tests still pass. Built 2026-10-29 on branch `feature/a1-admin-login` |
 | A2 | Projects: list, create, edit, delete, publish/hide, order, technologies, EN + DE texts | A new project appears on the public site without a deploy. Built 2026-10-30; delete asks on its own page first |
 | A3 | Certifications: list, create, edit, delete | Changes show on the certificates page and in the CV. Built 2026-10-30, plus ordering within each group |
-| A4 | Messages: inbox, detail, mark read, delete (V7 `read_at`) | Inbox shows new messages first |
+| A4 | Messages: inbox, detail, mark read, delete (V7 `read_at`) | Inbox shows new messages first. Built 2026-10-30: opening marks as read, "mark as unread", reply via email link, times in Swiss time |
 | A5 | Browser tests for login and editing, axe on admin pages, docs, deploy with the new `.env` values | Live admin works over HTTPS; CI green |
 
 ## Tests

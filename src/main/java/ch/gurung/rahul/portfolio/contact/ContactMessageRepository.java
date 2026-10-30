@@ -17,6 +17,13 @@ public interface ContactMessageRepository extends JpaRepository<ContactMessage, 
 	List<ContactMessage> findByMailSentFalseOrderByCreatedAtAsc();
 
 	/**
+	 * The admin inbox, newest first.
+	 */
+	List<ContactMessage> findAllByOrderByCreatedAtDescIdDesc();
+
+	long countByReadAtIsNull();
+
+	/**
 	 * Deletes messages created before {@code cutoff} and returns how many were deleted.
 	 */
 	@Modifying

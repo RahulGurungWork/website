@@ -27,6 +27,11 @@ public class ContactMessage {
 
 	private boolean mailSent;
 
+	/**
+	 * When the admin first opened the message; {@code null} while unread (step A4).
+	 */
+	private Instant readAt;
+
 	protected ContactMessage() {
 	}
 
@@ -63,6 +68,27 @@ public class ContactMessage {
 
 	public void markMailSent() {
 		this.mailSent = true;
+	}
+
+	public Instant getReadAt() {
+		return this.readAt;
+	}
+
+	public boolean isRead() {
+		return this.readAt != null;
+	}
+
+	/**
+	 * Keeps the time of the first reading.
+	 */
+	void markRead(Instant now) {
+		if (this.readAt == null) {
+			this.readAt = now;
+		}
+	}
+
+	void markUnread() {
+		this.readAt = null;
 	}
 
 }

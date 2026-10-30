@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/admin :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="#{admin.message.title(${message.name})}">Message from Anna Muster – Admin</title>
+</head>
+<body>
+	<main id="main" class="section">
+		<div class="wrap admin-form-wrap">
+			<p><a class="back" th:href="@{/{l}/admin/messages(l=${lang})}" th:text="#{admin.message.back}">All
+					messages</a></p>
+			<div class="section-head">
+				<span class="eyebrow" th:text="#{admin.messages.heading}">Messages</span>
+				<h1 th:text="#{admin.message.heading(${message.name})}">Message from Anna Muster</h1>
+			</div>
+
+			<dl class="admin-facts">
+				<dt th:text="#{admin.message.email}">Email</dt>
+				<dd><a th:href="|mailto:${message.email}|" th:text="${message.email}">anna@example.ch</a></dd>
+				<dt th:text="#{admin.messages.col.received}">Received</dt>
+				<dd><time th:datetime="${#temporals.formatISO(message.receivedAt)}"
+						th:text="${#temporals.format(message.receivedAt, 'dd.MM.yyyy HH:mm')}">30.10.2026 14:05</time></dd>
+				<dt th:text="#{admin.messages.col.mail}">Email notification</dt>
+				<dd th:text="${message.mailSent} ? #{admin.message.mailSent} : #{admin.message.mailFailedLong}">Sent</dd>
+			</dl>
+
+			<div class="admin-message" th:text="${message.message}">Hello, I saw your project.</div>
+
+			<div class="actions">
+				<a class="btn btn-brand" th:href="|mailto:${message.email}|" th:text="#{admin.message.reply}">Reply by
+					email</a>
+				<form th:action="@{/{l}/admin/messages/{id}/unread(l=${lang}, id=${message.id})}" method="post">
+					<button class="btn btn-outline-ink" type="submit" th:text="#{admin.message.markUnread}">Mark as
+						unread</button>
+				</form>
+				<a class="admin-danger" th:href="@{/{l}/admin/messages/{id}/delete(l=${lang}, id=${message.id})}"
+					th:text="#{admin.action.delete}">Delete</a>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

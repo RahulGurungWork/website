@@ -412,3 +412,9 @@ label { font-weight: 700; }
 .admin-choices input, .admin-check input { width: 1.1rem; height: 1.1rem; accent-color: var(--red); }
 .admin-group + .admin-group { margin-top: 2rem; }
 .admin-group h2 { font-size: 1.35rem; margin-bottom: 0.75rem; }
+.admin-unread th a { font-weight: 700; }
+.admin-facts { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.4rem 1.25rem; margin: 0 0 1.5rem; }
+.admin-facts dt { font-weight: 700; }
+.admin-facts dd { margin: 0; overflow-wrap: anywhere; }
+.admin-message { white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid var(--line); border-radius: 8px; padding: 1.25rem; margin-bottom: 1.5rem; }
+.actions form { margin: 0; }

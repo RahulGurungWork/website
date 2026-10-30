@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/admin :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="#{admin.message.deleteTitle}">Delete message – Admin</title>
+</head>
+<body>
+	<main id="main" class="section">
+		<div class="wrap admin-narrow">
+			<div class="section-head">
+				<span class="eyebrow" th:text="#{admin.messages.heading}">Messages</span>
+				<h1 th:text="#{admin.message.deleteHeading}">Delete message?</h1>
+				<p th:text="#{admin.message.deleteText(${sender})}">The message from Anna Muster is deleted. This cannot
+					be undone.</p>
+			</div>
+			<form th:action="@{/{l}/admin/messages/{id}/delete(l=${lang}, id=${messageId})}" method="post">
+				<div class="actions">
+					<button class="btn btn-brand" type="submit" th:text="#{admin.delete.confirm}">Delete for
+						good</button>
+					<a class="btn btn-outline-ink" th:href="@{/{l}/admin/messages/{id}(l=${lang}, id=${messageId})}"
+						th:text="#{admin.action.cancel}">Cancel</a>
+				</div>
+			</form>
+		</div>
+	</main>
+</body>
+</html>
