@@ -23,6 +23,9 @@ and supplies its own <title> and <main id="main">. The logout button shows when 
 					Gurung</span> <span th:text="#{admin.label}">Admin</span></a>
 			<nav class="nav" th:aria-label="#{admin.nav.label}">
 				<ul class="nav-links">
+					<li th:if="${adminUser != null}"><a th:href="@{/{l}/admin/projects(l=${l})}"
+							th:aria-current="${#strings.startsWith(page, '/admin/projects')} ? 'page' : null"
+							th:text="#{admin.nav.projects}">Projects</a></li>
 					<li><a th:href="@{/{l}(l=${l})}" th:text="#{admin.nav.site}">View website</a></li>
 					<li th:if="${adminUser != null}">
 						<form class="admin-logout" th:action="@{/admin/logout}" method="post">

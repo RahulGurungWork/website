@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/admin :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="${projectId == null} ? #{admin.project.newTitle} : #{admin.project.editTitle}">Project – Admin</title>
+</head>
+<body>
+	<!--/* One form for new and existing projects. It posts to the URL it was shown on (ProjectAdminController). */-->
+	<main id="main" class="section">
+		<div class="wrap admin-form-wrap">
+			<div class="section-head">
+				<span class="eyebrow" th:text="#{admin.projects.heading}">Projects</span>
+				<h1 th:text="${projectId == null} ? #{admin.project.newHeading} : #{admin.project.editHeading}">New
+					project</h1>
+				<p th:text="#{admin.project.formLead}">All texts are needed in English and German.</p>
+			</div>
+
+			<form class="admin-form" th:object="${projectForm}" method="post"
+				th:action="${projectId == null} ? @{/{l}/admin/projects/new(l=${lang})} : @{/{l}/admin/projects/{id}/edit(l=${lang}, id=${projectId})}"
+				novalidate>
+				<div class="form-status form-errors" role="alert" th:if="${#fields.hasErrors('*')}">
+					<p th:text="#{admin.form.errorSummary}">Please correct the following:</p>
+					<ul>
+						<th:block th:each="field : ${fieldOrder}">
+							<li th:if="${#fields.hasErrors(field)}"><a th:href="|#${field}|"
+									th:text="|#{__${'admin.project.field.' + field}__}: ${#fields.errors(field)[0]}|">Field:
+									error</a></li>
+						</th:block>
+					</ul>
+				</div>
+
+				<fieldset>
+					<legend th:text="#{admin.project.general}">General</legend>
+
+					<div class="field">
+						<label for="slug" th:text="#{admin.project.field.slug}">Address (slug)</label>
+						<input th:field="*{slug}" required maxlength="100" autocapitalize="none" spellcheck="false"
+							th:aria-invalid="${#fields.hasErrors('slug')} ? 'true' : null"
+							th:aria-describedby="${#fields.hasErrors('slug')} ? 'slug-hint slug-error' : 'slug-hint'">
+						<span class="hint" id="slug-hint" th:text="#{admin.project.slugHint}">Lower case letters,
+							digits and dashes, e.g. n8n-workflow.</span>
+						<span class="field-error" id="slug-error" th:if="${#fields.hasErrors('slug')}"
+							th:text="${#fields.errors('slug')[0]}">Error</span>
+					</div>
+
+					<fieldset class="field" id="status">
+						<legend th:text="#{admin.project.field.status}">Status</legend>
+						<div class="admin-choices">
+							<div th:each="value : ${statuses}">
+								<input type="radio" th:field="*{status}" th:value="${value}">
+								<label th:for="${#ids.prev('status')}"
+									th:text="#{__${'projects.status.' + value}__}">Current project</label>
+							</div>
+						</div>
+					</fieldset>
+
+					<div class="admin-row">
+						<div class="field">
+							<label for="startedOn" th:text="#{admin.project.field.startedOn}">Started</label>
+							<input type="date" th:field="*{startedOn}"
+								th:aria-invalid="${#fields.hasErrors('startedOn')} ? 'true' : null"
+								th:aria-describedby="${#fields.hasErrors('startedOn')} ? 'startedOn-error' : null">
+							<span class="field-error" id="startedOn-error" th:if="${#fields.hasErrors('startedOn')}"
+								th:text="${#fields.errors('startedOn')[0]}">Error</span>
+						</div>
+						<div class="field">
+							<label for="endedOn" th:text="#{admin.project.field.endedOn}">Finished</label>
+							<input type="date" th:field="*{endedOn}"
+								th:aria-invalid="${#fields.hasErrors('endedOn')} ? 'true' : null"
+								th:aria-describedby="${#fields.hasErrors('endedOn')} ? 'endedOn-hint endedOn-error' : 'endedOn-hint'">
+							<span class="hint" id="endedOn-hint" th:text="#{admin.project.endedOnHint}">Leave empty
+								while you are still working on it.</span>
+							<span class="field-error" id="endedOn-error" th:if="${#fields.hasErrors('endedOn')}"
+								th:text="${#fields.errors('endedOn')[0]}">Error</span>
+						</div>
+					</div>
+
+					<div class="field">
+						<label for="repoUrl" th:text="#{admin.project.field.repoUrl}">Source code link</label>
+						<input type="url" th:field="*{repoUrl}" maxlength="500" placeholder="https://"
+							th:aria-invalid="${#fields.hasErrors('repoUrl')} ? 'true' : null"
+							th:aria-describedby="${#fields.hasErrors('repoUrl')} ? 'repoUrl-error' : null">
+						<span class="field-error" id="repoUrl-error" th:if="${#fields.hasErrors('repoUrl')}"
+							th:text="${#fields.errors('repoUrl')[0]}">Error</span>
+					</div>
+					<div class="field">
+						<label for="demoUrl" th:text="#{admin.project.field.demoUrl}">Live demo link</label>
+						<input type="url" th:field="*{demoUrl}" maxlength="500" placeholder="https://"
+							th:aria-invalid="${#fields.hasErrors('demoUrl')} ? 'true' : null"
+							th:aria-describedby="${#fields.hasErrors('demoUrl')} ? 'demoUrl-error' : null">
+						<span class="field-error" id="demoUrl-error" th:if="${#fields.hasErrors('demoUrl')}"
+							th:text="${#fields.errors('demoUrl')[0]}">Error</span>
+					</div>
+
+					<fieldset class="field">
+						<legend th:text="#{admin.project.field.technologies}">Technologies</legend>
+						<div class="admin-choices" th:unless="${technologies.isEmpty()}">
+							<div th:each="technology : ${technologies}">
+								<input type="checkbox" th:field="*{technologyIds}" th:value="${technology.id}">
+								<label th:for="${#ids.prev('technologyIds')}" th:text="${technology.name}">Java</label>
+							</div>
+						</div>
+					</fieldset>
+					<div class="field">
+						<label for="newTechnologies" th:text="#{admin.project.field.newTechnologies}">Add
+							technologies</label>
+						<input th:field="*{newTechnologies}" maxlength="300"
+							th:aria-describedby="${#fields.hasErrors('newTechnologies')} ? 'newTechnologies-hint newTechnologies-error' : 'newTechnologies-hint'"
+							th:aria-invalid="${#fields.hasErrors('newTechnologies')} ? 'true' : null">
+						<span class="hint" id="newTechnologies-hint" th:text="#{admin.project.newTechnologiesHint}">Comma
+							separated, e.g. Docker, Python.</span>
+						<span class="field-error" id="newTechnologies-error" th:if="${#fields.hasErrors('newTechnologies')}"
+							th:text="${#fields.errors('newTechnologies')[0]}">Error</span>
+					</div>
+
+					<div class="admin-check">
+						<input type="checkbox" th:field="*{published}">
+						<label th:for="${#ids.prev('published')}" th:text="#{admin.project.field.published}">Show on
+							the website</label>
+					</div>
+				</fieldset>
+
+				<fieldset>
+					<legend lang="en">English</legend>
+					<div class="field">
+						<label for="titleEn" th:text="#{admin.project.field.title}">Title</label>
+						<input th:field="*{titleEn}" lang="en" required maxlength="200"
+							th:aria-invalid="${#fields.hasErrors('titleEn')} ? 'true' : null"
+							th:aria-describedby="${#fields.hasErrors('titleEn')} ? 'titleEn-error' : null">
+						<span class="field-error" id="titleEn-error" th:if="${#fields.hasErrors('titleEn')}"
+							th:text="${#fields.errors('titleEn')[0]}">Error</span>
+					</div>
+					<div class="field">
+						<label for="summaryEn" th:text="#{admin.project.field.summary}">Short text for the card</label>
+						<textarea th:field="*{summaryEn}" lang="en" required maxlength="500" rows="2"
+							th:aria-invalid="${#fields.hasErrors('summaryEn')} ? 'true' : null"
+							th:aria-describedby="${#fields.hasErrors('summaryEn')} ? 'summaryEn-error' : null"></textarea>
+						<span class="field-error" id="summaryEn-error" th:if="${#fields.hasErrors('summaryEn')}"
+							th:text="${#fields.errors('summaryEn')[0]}">Error</span>
+					</div>
+					<div class="field">
+						<label for="descriptionEn" th:text="#{admin.project.field.description}">Description</label>
+						<textarea th:field="*{descriptionEn}" lang="en" required rows="8"
+							th:aria-describedby="${#fields.hasErrors('descriptionEn')} ? 'descriptionEn-hint descriptionEn-error' : 'descriptionEn-hint'"
+							th:aria-invalid="${#fields.hasErrors('descriptionEn')} ? 'true' : null"></textarea>
+						<span class="hint" id="descriptionEn-hint" th:text="#{admin.project.descriptionHint}">An empty
+							line starts a new paragraph.</span>
+						<span class="field-error" id="descriptionEn-error" th:if="${#fields.hasErrors('descriptionEn')}"
+							th:text="${#fields.errors('descriptionEn')[0]}">Error</span>
+					</div>
+				</fieldset>
+
+				<fieldset>
+					<legend lang="de">Deutsch</legend>
+					<div class="field">
+						<label for="titleDe" th:text="#{admin.project.field.title}">Title</label>
+						<input th:field="*{titleDe}" lang="de" required maxlength="200"
+							th:aria-invalid="${#fields.hasErrors('titleDe')} ? 'true' : null"
+							th:aria-describedby="${#fields.hasErrors('titleDe')} ? 'titleDe-error' : null">
+						<span class="field-error" id="titleDe-error" th:if="${#fields.hasErrors('titleDe')}"
+							th:text="${#fields.errors('titleDe')[0]}">Error</span>
+					</div>
+					<div class="field">
+						<label for="summaryDe" th:text="#{admin.project.field.summary}">Short text for the card</label>
+						<textarea th:field="*{summaryDe}" lang="de" required maxlength="500" rows="2"
+							th:aria-invalid="${#fields.hasErrors('summaryDe')} ? 'true' : null"
+							th:aria-describedby="${#fields.hasErrors('summaryDe')} ? 'summaryDe-error' : null"></textarea>
+						<span class="field-error" id="summaryDe-error" th:if="${#fields.hasErrors('summaryDe')}"
+							th:text="${#fields.errors('summaryDe')[0]}">Error</span>
+					</div>
+					<div class="field">
+						<label for="descriptionDe" th:text="#{admin.project.field.description}">Description</label>
+						<textarea th:field="*{descriptionDe}" lang="de" required rows="8"
+							th:aria-describedby="${#fields.hasErrors('descriptionDe')} ? 'descriptionDe-hint descriptionDe-error' : 'descriptionDe-hint'"
+							th:aria-invalid="${#fields.hasErrors('descriptionDe')} ? 'true' : null"></textarea>
+						<span class="hint" id="descriptionDe-hint" th:text="#{admin.project.descriptionHint}">An empty
+							line starts a new paragraph.</span>
+						<span class="field-error" id="descriptionDe-error" th:if="${#fields.hasErrors('descriptionDe')}"
+							th:text="${#fields.errors('descriptionDe')[0]}">Error</span>
+					</div>
+				</fieldset>
+
+				<div class="actions">
+					<button class="btn btn-brand" type="submit" th:text="#{admin.action.save}">Save</button>
+					<a class="btn btn-outline-ink" th:href="@{/{l}/admin/projects(l=${lang})}"
+						th:text="#{admin.action.cancel}">Cancel</a>
+				</div>
+			</form>
+		</div>
+	</main>
+</body>
+</html>

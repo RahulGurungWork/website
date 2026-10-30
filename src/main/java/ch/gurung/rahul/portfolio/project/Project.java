@@ -1,12 +1,14 @@
 package ch.gurung.rahul.portfolio.project;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
 import ch.gurung.rahul.portfolio.technology.Technology;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -46,7 +48,7 @@ public class Project {
 
 	private boolean published;
 
-	@OneToMany(mappedBy = "project")
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<ProjectTranslation> translations = new LinkedHashSet<>();
 
 	@OneToMany(mappedBy = "project")
@@ -60,6 +62,54 @@ public class Project {
 	private Set<Technology> technologies = new LinkedHashSet<>();
 
 	protected Project() {
+	}
+
+	/**
+	 * A new, unpublished project; the admin fills in the rest with {@link #update} and {@link #putTranslation}.
+	 */
+	public Project(String slug, int sortOrder) {
+		this.slug = slug;
+		this.status = ProjectStatus.CURRENT;
+		this.sortOrder = sortOrder;
+	}
+
+	/**
+	 * Sets everything except texts, technologies, images and order (admin panel, step A2).
+	 */
+	void update(String slug, ProjectStatus status, LocalDate startedOn, LocalDate endedOn, String repoUrl,
+			String demoUrl, boolean published) {
+		this.slug = slug;
+		this.status = status;
+		this.startedOn = startedOn;
+		this.endedOn = endedOn;
+		this.repoUrl = repoUrl;
+		this.demoUrl = demoUrl;
+		this.published = published;
+	}
+
+	void setPublished(boolean published) {
+		this.published = published;
+	}
+
+	void setSortOrder(int sortOrder) {
+		this.sortOrder = sortOrder;
+	}
+
+	/**
+	 * Creates or replaces the texts in one language.
+	 */
+	void putTranslation(String language, String title, String summary, String description) {
+		ProjectTranslation translation = translation(Locale.of(language)).orElseGet(() -> {
+			ProjectTranslation created = new ProjectTranslation(this, language);
+			this.translations.add(created);
+			return created;
+		});
+		translation.update(title, summary, description);
+	}
+
+	void replaceTechnologies(Collection<Technology> technologies) {
+		this.technologies.clear();
+		this.technologies.addAll(technologies);
 	}
 
 	public Long getId() {

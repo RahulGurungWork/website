@@ -20,6 +20,13 @@ public class Technology {
 	protected Technology() {
 	}
 
+	/**
+	 * A technology the admin typed in that did not exist yet.
+	 */
+	public Technology(String name) {
+		this.name = name;
+	}
+
 	public Long getId() {
 		return this.id;
 	}

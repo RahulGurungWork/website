@@ -11,10 +11,14 @@
 				<h1 th:text="#{admin.dashboard.heading}">Dashboard</h1>
 				<p th:text="#{admin.dashboard.loggedInAs(${adminUser})}">Logged in as admin.</p>
 			</div>
-			<!--/* Sections arrive in steps A2 to A4 (docs/hermes/08-admin-panel.md). */-->
+			<h2 th:text="#{admin.dashboard.manage}">Manage</h2>
+			<ul class="plain-list">
+				<li><a th:href="@{/{l}/admin/projects(l=${lang})}" th:text="#{admin.dashboard.projects}">Projects:
+						create, edit, publish and order</a></li>
+			</ul>
+			<!--/* Sections arrive in steps A3 and A4 (docs/hermes/08-admin-panel.md). */-->
 			<h2 th:text="#{admin.dashboard.next}">Coming next</h2>
 			<ul class="plain-list">
-				<li th:text="#{admin.dashboard.projects}">Projects: create, edit, publish and order</li>
 				<li th:text="#{admin.dashboard.certificates}">Certificates: create, edit and delete</li>
 				<li th:text="#{admin.dashboard.messages}">Messages from the contact form</li>
 			</ul>

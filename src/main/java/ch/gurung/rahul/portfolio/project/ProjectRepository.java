@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
@@ -19,5 +20,24 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 	 */
 	@EntityGraph(attributePaths = { "translations", "images", "technologies" })
 	Optional<Project> findBySlugAndPublishedTrue(String slug);
+
+	/**
+	 * All projects, published or not, for the admin list.
+	 */
+	@EntityGraph(attributePaths = { "translations" })
+	List<Project> findAllByOrderBySortOrderAscIdAsc();
+
+	/**
+	 * One project with texts and technologies loaded, for the admin form.
+	 */
+	@EntityGraph(attributePaths = { "translations", "technologies" })
+	Optional<Project> findWithDetailsById(Long id);
+
+	boolean existsBySlug(String slug);
+
+	boolean existsBySlugAndIdNot(String slug, Long id);
+
+	@Query("select coalesce(max(p.sortOrder), 0) from Project p")
+	int maxSortOrder();
 
 }

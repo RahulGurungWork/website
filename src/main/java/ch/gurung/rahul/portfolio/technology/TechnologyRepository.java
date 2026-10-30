@@ -8,4 +8,6 @@ public interface TechnologyRepository extends JpaRepository<Technology, Long> {
 
 	Optional<Technology> findByName(String name);
 
+	Optional<Technology> findByNameIgnoreCase(String name);
+
 }

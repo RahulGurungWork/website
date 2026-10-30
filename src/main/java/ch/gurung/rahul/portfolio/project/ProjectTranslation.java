@@ -31,6 +31,17 @@ public class ProjectTranslation {
 	protected ProjectTranslation() {
 	}
 
+	ProjectTranslation(Project project, String locale) {
+		this.project = project;
+		this.locale = locale;
+	}
+
+	void update(String title, String summary, String description) {
+		this.title = title;
+		this.summary = summary;
+		this.description = description;
+	}
+
 	public Long getId() {
 		return this.id;
 	}

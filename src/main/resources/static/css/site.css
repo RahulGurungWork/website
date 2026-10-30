@@ -390,3 +390,23 @@ label { font-weight: 700; }
 .admin-narrow form { display: grid; gap: 1.1rem; }
 .admin-logout { margin: 0; }
 .admin-logout .btn { padding: 0.3rem 0.9rem; }
+.admin-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem; }
+.admin-table-wrap { overflow-x: auto; }
+.admin-table th[scope="row"] { font-weight: 600; }
+.admin-slug { font-size: 0.85rem; color: var(--muted); }
+.admin-badge { display: inline-block; padding: 0.1rem 0.5rem; border: 1px solid var(--muted); border-radius: 4px; font-size: 0.85rem; }
+.admin-badge-on { background: var(--tint); border-color: var(--tint); color: var(--fg); }
+.admin-actions { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; align-items: baseline; }
+.admin-actions form { margin: 0; }
+.admin-link { background: none; border: 0; padding: 0; color: var(--link); text-decoration: underline; font: inherit; cursor: pointer; }
+.admin-danger, .admin-danger:hover { color: var(--link); font-weight: 600; }
+.admin-form-wrap { max-width: 48rem; }
+.admin-form { display: grid; gap: 1.5rem; }
+.admin-form fieldset { display: grid; gap: 1.1rem; border: 1px solid var(--line); border-radius: 8px; padding: 1.25rem; margin: 0; }
+.admin-form fieldset.field { border: 0; padding: 0; }
+.admin-form legend { font-weight: 700; font-size: 1.1rem; float: none; width: auto; padding: 0 0.25rem; margin: 0; }
+.admin-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 1.1rem; }
+.admin-choices { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+.admin-choices > div, .admin-check { display: flex; align-items: center; gap: 0.5rem; }
+.admin-choices label, .admin-check label { font-weight: 400; }
+.admin-choices input, .admin-check input { width: 1.1rem; height: 1.1rem; accent-color: var(--red); }

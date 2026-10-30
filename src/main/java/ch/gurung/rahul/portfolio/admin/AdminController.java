@@ -1,7 +1,5 @@
 package ch.gurung.rahul.portfolio.admin;
 
-import java.security.Principal;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +23,11 @@ public class AdminController {
 		return "admin/login";
 	}
 
+	/**
+	 * The model's {@code adminUser} comes from {@link AdminModelAdvice}.
+	 */
 	@GetMapping("/{lang:en|de}/admin")
-	public String dashboard(Principal principal, Model model) {
-		model.addAttribute("adminUser", principal.getName());
+	public String dashboard() {
 		return "admin/dashboard";
 	}
 

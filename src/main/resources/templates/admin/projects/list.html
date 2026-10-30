@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/admin :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="#{admin.projects.title}">Projects – Admin</title>
+</head>
+<body>
+	<main id="main" class="section">
+		<div class="wrap">
+			<div class="admin-head">
+				<div class="section-head">
+					<span class="eyebrow" th:text="#{admin.label}">Admin</span>
+					<h1 th:text="#{admin.projects.heading}">Projects</h1>
+					<p th:text="#{admin.projects.lead}">The order here is the order on the website.</p>
+				</div>
+				<p><a class="btn btn-brand" th:href="@{/{l}/admin/projects/new(l=${lang})}"
+						th:text="#{admin.projects.new}">New project</a></p>
+			</div>
+
+			<p class="form-status" role="status" th:if="${notice}" th:text="#{__${notice}__}">Saved.</p>
+
+			<p th:if="${projects.isEmpty()}" th:text="#{admin.projects.empty}">No projects yet.</p>
+
+			<div class="admin-table-wrap" th:unless="${projects.isEmpty()}">
+				<table class="table admin-table">
+					<caption class="visually-hidden" th:text="#{admin.projects.heading}">Projects</caption>
+					<thead>
+						<tr>
+							<th scope="col" th:text="#{admin.projects.col.position}">No.</th>
+							<th scope="col" th:text="#{admin.projects.col.title}">Title</th>
+							<th scope="col" th:text="#{admin.projects.col.status}">Status</th>
+							<th scope="col" th:text="#{admin.projects.col.visibility}">Visibility</th>
+							<th scope="col" th:text="#{admin.projects.col.actions}">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="project, iter : ${projects}">
+							<td th:text="${iter.count}">1</td>
+							<th scope="row">
+								<span th:text="${project.title}">Title</span><br>
+								<code class="admin-slug" th:text="${project.slug}">slug</code>
+							</th>
+							<td th:text="#{__${'projects.status.' + project.status}__}">Current project</td>
+							<td>
+								<span class="admin-badge admin-badge-on" th:if="${project.published}"
+									th:text="#{admin.project.published}">Published</span>
+								<span class="admin-badge" th:unless="${project.published}"
+									th:text="#{admin.project.hidden}">Hidden</span>
+							</td>
+							<td>
+								<div class="admin-actions">
+									<a th:href="@{/{l}/admin/projects/{id}/edit(l=${lang}, id=${project.id})}"><span
+											th:text="#{admin.action.edit}">Edit</span><span class="visually-hidden"
+											th:text="|: ${project.title}|">: Title</span></a>
+									<form th:action="@{/{l}/admin/projects/{id}/publish(l=${lang}, id=${project.id})}"
+										method="post">
+										<input type="hidden" name="published" th:value="${!project.published}">
+										<button class="admin-link" type="submit"><span
+												th:text="${project.published} ? #{admin.action.hide} : #{admin.action.publish}">Publish</span><span
+												class="visually-hidden" th:text="|: ${project.title}|">: Title</span></button>
+									</form>
+									<form th:unless="${project.first}"
+										th:action="@{/{l}/admin/projects/{id}/move(l=${lang}, id=${project.id})}"
+										method="post">
+										<input type="hidden" name="direction" value="up">
+										<button class="admin-link" type="submit"><span
+												th:text="#{admin.action.up}">Move up</span><span class="visually-hidden"
+												th:text="|: ${project.title}|">: Title</span></button>
+									</form>
+									<form th:unless="${project.last}"
+										th:action="@{/{l}/admin/projects/{id}/move(l=${lang}, id=${project.id})}"
+										method="post">
+										<input type="hidden" name="direction" value="down">
+										<button class="admin-link" type="submit"><span
+												th:text="#{admin.action.down}">Move down</span><span class="visually-hidden"
+												th:text="|: ${project.title}|">: Title</span></button>
+									</form>
+									<a class="admin-danger"
+										th:href="@{/{l}/admin/projects/{id}/delete(l=${lang}, id=${project.id})}"><span
+											th:text="#{admin.action.delete}">Delete</span><span class="visually-hidden"
+											th:text="|: ${project.title}|">: Title</span></a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
