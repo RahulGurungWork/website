@@ -410,3 +410,5 @@ label { font-weight: 700; }
 .admin-choices > div, .admin-check { display: flex; align-items: center; gap: 0.5rem; }
 .admin-choices label, .admin-check label { font-weight: 400; }
 .admin-choices input, .admin-check input { width: 1.1rem; height: 1.1rem; accent-color: var(--red); }
+.admin-group + .admin-group { margin-top: 2rem; }
+.admin-group h2 { font-size: 1.35rem; margin-bottom: 0.75rem; }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/admin :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="#{admin.certificate.deleteTitle}">Delete certificate – Admin</title>
+</head>
+<body>
+	<main id="main" class="section">
+		<div class="wrap admin-narrow">
+			<div class="section-head">
+				<span class="eyebrow" th:text="#{admin.certificates.heading}">Certificates</span>
+				<h1 th:text="#{admin.certificate.deleteHeading}">Delete certificate?</h1>
+				<p th:text="#{admin.certificate.deleteText(${certificationName})}">“Name” is removed from the
+					certificates page and the CV. This cannot be undone.</p>
+			</div>
+			<form th:action="@{/{l}/admin/certificates/{id}/delete(l=${lang}, id=${certificationId})}" method="post">
+				<div class="actions">
+					<button class="btn btn-brand" type="submit" th:text="#{admin.delete.confirm}">Delete for
+						good</button>
+					<a class="btn btn-outline-ink" th:href="@{/{l}/admin/certificates(l=${lang})}"
+						th:text="#{admin.action.cancel}">Cancel</a>
+				</div>
+			</form>
+		</div>
+	</main>
+</body>
+</html>

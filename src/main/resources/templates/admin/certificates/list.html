@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/admin :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="#{admin.certificates.title}">Certificates – Admin</title>
+</head>
+<body>
+	<main id="main" class="section">
+		<div class="wrap">
+			<div class="admin-head">
+				<div class="section-head">
+					<span class="eyebrow" th:text="#{admin.label}">Admin</span>
+					<h1 th:text="#{admin.certificates.heading}">Certificates</h1>
+					<p th:text="#{admin.certificates.lead}">Grouped like the certificates page.</p>
+				</div>
+				<p><a class="btn btn-brand" th:href="@{/{l}/admin/certificates/new(l=${lang})}"
+						th:text="#{admin.certificates.new}">New certificate</a></p>
+			</div>
+
+			<p class="form-status" role="status" th:if="${notice}" th:text="#{__${notice}__}">Saved.</p>
+
+			<p th:if="${groups.isEmpty()}" th:text="#{admin.certificates.empty}">No certificates yet.</p>
+
+			<section class="admin-group" th:each="group : ${groups}"
+				th:aria-labelledby="|group-${group.category}|">
+				<h2 th:id="|group-${group.category}|" th:text="#{__${'certificates.group.' + group.category}__}">
+					Technical</h2>
+				<div class="admin-table-wrap">
+					<table class="table admin-table">
+						<thead>
+							<tr>
+								<th scope="col" th:text="#{admin.certificates.col.name}">Name</th>
+								<th scope="col" th:text="#{admin.certificates.col.issuer}">Issuer</th>
+								<th scope="col" th:text="#{admin.certificates.col.date}">Date</th>
+								<th scope="col" th:text="#{admin.projects.col.actions}">Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="row : ${group.rows}">
+								<th scope="row" th:text="${row.name}">Name</th>
+								<td th:text="${row.issuer}">Issuer</td>
+								<td><time th:if="${row.issuedOn != null}" th:datetime="${row.issuedOn}"
+										th:text="${#temporals.format(row.issuedOn, 'dd.MM.yyyy')}">01.07.2026</time></td>
+								<td>
+									<div class="admin-actions">
+										<a th:href="@{/{l}/admin/certificates/{id}/edit(l=${lang}, id=${row.id})}"><span
+												th:text="#{admin.action.edit}">Edit</span><span class="visually-hidden"
+												th:text="|: ${row.name}|">: Name</span></a>
+										<form th:unless="${row.first}"
+											th:action="@{/{l}/admin/certificates/{id}/move(l=${lang}, id=${row.id})}"
+											method="post">
+											<input type="hidden" name="direction" value="up">
+											<button class="admin-link" type="submit"><span
+													th:text="#{admin.action.up}">Move up</span><span
+													class="visually-hidden" th:text="|: ${row.name}|">: Name</span></button>
+										</form>
+										<form th:unless="${row.last}"
+											th:action="@{/{l}/admin/certificates/{id}/move(l=${lang}, id=${row.id})}"
+											method="post">
+											<input type="hidden" name="direction" value="down">
+											<button class="admin-link" type="submit"><span
+													th:text="#{admin.action.down}">Move down</span><span
+													class="visually-hidden" th:text="|: ${row.name}|">: Name</span></button>
+										</form>
+										<a class="admin-danger"
+											th:href="@{/{l}/admin/certificates/{id}/delete(l=${lang}, id=${row.id})}"><span
+												th:text="#{admin.action.delete}">Delete</span><span class="visually-hidden"
+												th:text="|: ${row.name}|">: Name</span></a>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</section>
+		</div>
+	</main>
+</body>
+</html>

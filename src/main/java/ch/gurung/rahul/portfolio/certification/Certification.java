@@ -35,6 +35,29 @@ public class Certification {
 	protected Certification() {
 	}
 
+	/**
+	 * A new certification at {@code sortOrder}; the admin fills in the rest with {@link #update}.
+	 */
+	public Certification(int sortOrder) {
+		this.sortOrder = sortOrder;
+		this.category = CertificationCategory.PROFESSIONAL;
+	}
+
+	/**
+	 * Sets everything except the order (admin panel, step A3).
+	 */
+	void update(String name, String issuer, LocalDate issuedOn, String credentialUrl, CertificationCategory category) {
+		this.name = name;
+		this.issuer = issuer;
+		this.issuedOn = issuedOn;
+		this.credentialUrl = credentialUrl;
+		this.category = category;
+	}
+
+	void setSortOrder(int sortOrder) {
+		this.sortOrder = sortOrder;
+	}
+
 	public Long getId() {
 		return this.id;
 	}

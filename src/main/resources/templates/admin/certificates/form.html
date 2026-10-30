@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/admin :: layout(~{::title}, ~{::main})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title th:text="${certificationId == null} ? #{admin.certificate.newTitle} : #{admin.certificate.editTitle}">
+		Certificate – Admin</title>
+</head>
+<body>
+	<!--/* One form for new and existing certifications. It posts to the URL it was shown on. */-->
+	<main id="main" class="section">
+		<div class="wrap admin-form-wrap">
+			<div class="section-head">
+				<span class="eyebrow" th:text="#{admin.certificates.heading}">Certificates</span>
+				<h1
+					th:text="${certificationId == null} ? #{admin.certificate.newHeading} : #{admin.certificate.editHeading}">
+					New certificate</h1>
+				<p th:text="#{admin.certificate.formLead}">Names and issuers are shown the same in both languages.</p>
+			</div>
+
+			<form class="admin-form" th:object="${certificationForm}" method="post"
+				th:action="${certificationId == null} ? @{/{l}/admin/certificates/new(l=${lang})} : @{/{l}/admin/certificates/{id}/edit(l=${lang}, id=${certificationId})}"
+				novalidate>
+				<div class="form-status form-errors" role="alert" th:if="${#fields.hasErrors('*')}">
+					<p th:text="#{admin.form.errorSummary}">Please correct the following:</p>
+					<ul>
+						<th:block th:each="field : ${fieldOrder}">
+							<li th:if="${#fields.hasErrors(field)}"><a th:href="|#${field}|"
+									th:text="|#{__${'admin.certificate.field.' + field}__}: ${#fields.errors(field)[0]}|">Field:
+									error</a></li>
+						</th:block>
+					</ul>
+				</div>
+
+				<fieldset>
+					<legend th:text="#{admin.certificate.details}">Details</legend>
+
+					<div class="field">
+						<label for="name" th:text="#{admin.certificate.field.name}">Name</label>
+						<input th:field="*{name}" required maxlength="200"
+							th:aria-invalid="${#fields.hasErrors('name')} ? 'true' : null"
+							th:aria-describedby="${#fields.hasErrors('name')} ? 'name-error' : null">
+						<span class="field-error" id="name-error" th:if="${#fields.hasErrors('name')}"
+							th:text="${#fields.errors('name')[0]}">Error</span>
+					</div>
+					<div class="field">
+						<label for="issuer" th:text="#{admin.certificate.field.issuer}">Issued by</label>
+						<input th:field="*{issuer}" required maxlength="200"
+							th:aria-invalid="${#fields.hasErrors('issuer')} ? 'true' : null"
+							th:aria-describedby="${#fields.hasErrors('issuer')} ? 'issuer-error' : null">
+						<span class="field-error" id="issuer-error" th:if="${#fields.hasErrors('issuer')}"
+							th:text="${#fields.errors('issuer')[0]}">Error</span>
+					</div>
+					<div class="field">
+						<label for="issuedOn" th:text="#{admin.certificate.field.issuedOn}">Date</label>
+						<input type="date" th:field="*{issuedOn}"
+							th:aria-invalid="${#fields.hasErrors('issuedOn')} ? 'true' : null"
+							th:aria-describedby="${#fields.hasErrors('issuedOn')} ? 'issuedOn-hint issuedOn-error' : 'issuedOn-hint'">
+						<span class="hint" id="issuedOn-hint" th:text="#{admin.certificate.issuedOnHint}">Optional, for
+							example for a role without an end.</span>
+						<span class="field-error" id="issuedOn-error" th:if="${#fields.hasErrors('issuedOn')}"
+							th:text="${#fields.errors('issuedOn')[0]}">Error</span>
+					</div>
+					<div class="field">
+						<label for="credentialUrl" th:text="#{admin.certificate.field.credentialUrl}">Credential
+							link</label>
+						<input type="url" th:field="*{credentialUrl}" maxlength="500" placeholder="https://"
+							th:aria-invalid="${#fields.hasErrors('credentialUrl')} ? 'true' : null"
+							th:aria-describedby="${#fields.hasErrors('credentialUrl')} ? 'credentialUrl-hint credentialUrl-error' : 'credentialUrl-hint'">
+						<span class="hint" id="credentialUrl-hint" th:text="#{admin.certificate.credentialUrlHint}">Only
+							if the certificate can be checked online.</span>
+						<span class="field-error" id="credentialUrl-error" th:if="${#fields.hasErrors('credentialUrl')}"
+							th:text="${#fields.errors('credentialUrl')[0]}">Error</span>
+					</div>
+
+					<fieldset class="field" id="category">
+						<legend th:text="#{admin.certificate.field.category}">Group on the page</legend>
+						<div class="admin-choices">
+							<div th:each="value : ${categories}">
+								<input type="radio" th:field="*{category}" th:value="${value}">
+								<label th:for="${#ids.prev('category')}"
+									th:text="#{__${'certificates.group.' + value}__}">Technical</label>
+							</div>
+						</div>
+					</fieldset>
+				</fieldset>
+
+				<div class="actions">
+					<button class="btn btn-brand" type="submit" th:text="#{admin.action.save}">Save</button>
+					<a class="btn btn-outline-ink" th:href="@{/{l}/admin/certificates(l=${lang})}"
+						th:text="#{admin.action.cancel}">Cancel</a>
+				</div>
+			</form>
+		</div>
+	</main>
+</body>
+</html>
