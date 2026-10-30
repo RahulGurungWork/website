@@ -56,8 +56,8 @@ Integration tests use Testcontainers, so Docker Desktop must be running.
 ## Project layout
 
 ```text
-.github/workflows/   CI (build, test incl. browser tests, secret scan, Lighthouse) and deploy (manual trigger)
-deploy/              docker-compose.yml (production), docker-compose.dev.yml (local), Caddyfile, backup.sh,
+.github/workflows/   CI (build, test incl. browser tests, secret scan, Lighthouse) and deploy (after every passing CI run on main)
+deploy/              docker-compose.yml (production), docker-compose.dev.yml (local), Caddyfile, deploy.sh (server side of CD), backup.sh,
                      smoke-test.sh, .env.example
 docs/hermes/         Charter, requirements, risks, test concept, roadmap, test results, go-live checklist
 docs/adr/            Architecture decision records
