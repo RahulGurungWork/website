@@ -10,11 +10,12 @@ HERMES phase: Concept.
 | FR2 | Each project has a detail page (title, description, technologies, links, images) | Must | 1 |
 | FR3 | Visitors can send a message via the contact form, with spam protection | Must | 1 |
 | FR4 | Certifications page | Must | 1 |
-| FR5 | Admin login; admin can create, edit, hide and delete projects | Must | later |
+| FR5 | Admin login; admin can create, edit, hide and delete projects | Must | 2 (admin panel, 2026-10-30) |
 | FR6 | English and German content | Must | 1 |
 | FR7 | French and Italian content | Should | later |
 | FR8 | Romansh content | Could | later |
-| FR9 | Admin can manage certifications | Should | later |
+| FR9 | Admin can manage certifications | Should | 2 (admin panel, 2026-10-30) |
+| FR14 | Admin can read, mark and delete contact messages | Should | 2 (admin panel, 2026-10-30) |
 | FR10 | Downloadable CV (PDF) | Could | 1 (added 2026-10-18) |
 | FR11 | Language switcher with URL per language (/en, /de) | Must | 1 |
 | FR12 | Impressum page | Must | 1 |

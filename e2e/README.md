@@ -8,6 +8,7 @@ Browser tests with Playwright for Java and axe-core accessibility checks. They l
 | :--- | :--- |
 | `BrowserFlowsIT` | `/` redirect by browser language; home to project detail in EN and DE; language switcher keeps the page; contact form errors and success; legal notice and privacy notice reachable from every footer; skip link |
 | `AccessibilityBrowserIT` | No axe-core WCAG 2.1 A/AA violations on every page type, both languages, light and dark mode, and the contact form with errors |
+| `AdminBrowserIT` | Admin login with password and a generated authenticator code (wrong code rejected, logout ends the session); a project created in the admin appears on the public site; no axe-core violations on every admin page, the login page with an error, the project form with errors, the delete confirmation, a message page, and dark mode |
 
 Playwright downloads Chromium on first use. On Linux it also needs system libraries:
 

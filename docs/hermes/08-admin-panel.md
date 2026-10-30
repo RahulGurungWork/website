@@ -31,7 +31,7 @@ site.
 | A2 | Projects: list, create, edit, delete, publish/hide, order, technologies, EN + DE texts | A new project appears on the public site without a deploy. Built 2026-10-30; delete asks on its own page first |
 | A3 | Certifications: list, create, edit, delete | Changes show on the certificates page and in the CV. Built 2026-10-30, plus ordering within each group |
 | A4 | Messages: inbox, detail, mark read, delete (V7 `read_at`) | Inbox shows new messages first. Built 2026-10-30: opening marks as read, "mark as unread", reply via email link, times in Swiss time |
-| A5 | Browser tests for login and editing, axe on admin pages, docs, deploy with the new `.env` values | Live admin works over HTTPS; CI green |
+| A5 | Browser tests for login and editing, axe on admin pages, docs, deploy with the new `.env` values | Live admin works over HTTPS; CI green. Tests done 2026-10-30 (`AdminBrowserIT`; axe found and fixed black table text in dark mode) |
 
 ## Tests
 

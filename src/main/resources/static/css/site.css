@@ -392,6 +392,8 @@ label { font-weight: 700; }
 .admin-logout .btn { padding: 0.3rem 0.9rem; }
 .admin-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem; }
 .admin-table-wrap { overflow-x: auto; }
+/* Bootstrap tables bring their own colours; use the site tokens so dark mode keeps its contrast */
+.admin-table { --bs-table-color: var(--fg); --bs-table-bg: transparent; --bs-table-border-color: var(--line); --bs-emphasis-color: var(--fg); }
 .admin-table th[scope="row"] { font-weight: 600; }
 .admin-slug { font-size: 0.85rem; color: var(--muted); }
 .admin-badge { display: inline-block; padding: 0.1rem 0.5rem; border: 1px solid var(--muted); border-radius: 4px; font-size: 0.85rem; }
