@@ -2,7 +2,7 @@
 
 Option A: one 3-hour session per week, starting Monday 2026-10-19. From 2026-10-25 the sessions are fixed on Sundays 13:00–16:00 (calendar series until 2027-01-17). Gantt chart (original plan): [`../diagrams/gantt.puml`](../diagrams/gantt.puml).
 
-Status 2026-10-23: M1–M7 are done and the site is live at <https://www.portfolio.rahul.gurung.ch> (commit `355371c`), well ahead of the plan. Open: the M8 follow-ups in [`07-go-live.md`](07-go-live.md) and the manual checks in [`06-test-results.md`](06-test-results.md).
+Status 2026-10-23: M1–M7 are done and the site is live at <https://www.portfolio.rahul.gurung.ch> (commit `355371c`), well ahead of the plan. Open: the M8 follow-ups in [`07-go-live.md`](07-go-live.md) and the manual checks in [`06-test-results.md`](06-test-results.md). Release 2 (admin panel, steps A1–A5) is live since 2026-10-30, see [`08-admin-panel.md`](08-admin-panel.md).
 
 | Planned week | Milestone | Done when | Status |
 | :--- | :--- | :--- | :--- |
